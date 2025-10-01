@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kirisame's very cool website</title>
-    <link rel="icon" type="image/x-icon" href="https://pbs.twimg.com/media/CgvUp4wWMAAQ_Xl?format=jpg&name=240x240">
+    <title>kirisame.dev | Ordinary Magician's Grimoire</title>
+    <!-- FAVICON LINK: Use your direct image link from X here -->
+    <!-- !!! IMPORTANT: REPLACE "YOUR_DIRECT_X_IMAGE_URL_HERE" with the actual image URL !!! -->
+    <link rel="icon" type="image/jpeg" href="YOUR_DIRECT_X_IMAGE_URL_HERE">
+    
     <!-- Fonts for Touhou/Anime Aesthetic -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Poppins:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -13,7 +16,7 @@
             --color-cream: #FAF0E6;      /* Background */
             --color-yellow: #FFD700;     /* Gold/Master Spark (more vibrant) */
             --color-charcoal: #2A363B;   /* Darker, starker black for outlines */
-            --color-light-grey: #D3D3D3; /* For subtle background details */
+            --color-light-grey: #EBE3D0; /* Warmer Parchment/Light Tan for subtle background details */
             --font-heading: 'Cinzel Decorative', serif; /* More ornate */
             --font-body: 'Poppins', sans-serif; /* Clean, modern anime feel */
             --font-accent: 'Press Start 2P', cursive; /* Pixelated for certain elements */
@@ -43,7 +46,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkFGMEU2Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0QzRDMzMzIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN5PSIxNTAiIGN5PSIxNTAiIHI9IjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNEM0QzMzMyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz48L3N2Zz4=');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkFGMEU2Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0QzRDMzMzIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN5PSIxNTAiIGN5PSIxNTAiIHI9IjI1IiBzY2FsZT0iMC41IiBmaWxsPSJub25lIiBzdHJva2U9IiNEM0QzMzMyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFhY2l0eT0iMC4zIi8+PC9zdmc+');
             opacity: 0.3;
             z-index: -1;
             pointer-events: none;
@@ -115,17 +118,8 @@
             letter-spacing: 1px;
         }
 
-        .navbar nav:has(a[href="#skills"]:hover) a[href="#skills"] {
-             /* A slight interaction rule for the link that is currently active/hovered */
-            color: var(--color-yellow);
-            background-color: rgba(255, 215, 0, 0.1);
-            border-color: var(--color-yellow); 
-            transform: translateY(-2px);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            border-radius: 4px;
-        }
-
-        .navbar nav a:hover {
+        .navbar nav a:hover,
+        .navbar nav a[href="#skills"]:focus {
             color: var(--color-yellow);
             background-color: rgba(255, 215, 0, 0.1); /* Light yellow background hover */
             border-color: var(--color-yellow); /* Yellow border on hover */
@@ -316,14 +310,18 @@
             z-index: 1;
         }
 
-        .projects-section h2 {
+        .projects-section h2,
+        .skills-section h2,
+        .about-section h2 { /* Added .about-section h2 */
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 50px;
             position: relative;
         }
 
-        .projects-section h2::after {
+        .projects-section h2::after,
+        .skills-section h2::after,
+        .about-section h2::after { /* Added .about-section h2::after */
             content: '';
             position: absolute;
             width: 80px;
@@ -412,8 +410,122 @@
             border-color: var(--color-yellow);
             transform: translateX(5px);
         }
+        
+        /* --- 6. SKILLS SECTION (Spell List) --- */
+        .skills-section {
+            padding: 80px 0;
+            background-color: var(--color-light-grey); /* Now using the warmer parchment color */
+            border-top: 5px dashed var(--color-charcoal);
+        }
+        
+        /* --- 7. ABOUT ME SECTION (The Magician's Dossier) --- */
+        .about-section {
+            padding: 80px 0;
+            background-color: var(--color-charcoal);
+            color: var(--color-cream);
+            border-top: 5px solid var(--color-yellow);
+            border-bottom: 5px solid var(--color-yellow);
+        }
+        
+        .about-section h2 {
+            color: var(--color-cream);
+        }
+        
+        .about-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .achievement-box {
+            background-color: rgba(255, 215, 0, 0.1);
+            border: 3px solid var(--color-yellow);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        .achievement-box h3 {
+            color: var(--color-yellow);
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-box p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-cream);
+        }
+        /* End of About Section Specific Styles */
 
-        /* --- 6. FOOTER --- */
+        .skill-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category-card {
+            background-color: var(--color-cream);
+            border: 3px solid var(--color-charcoal);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 4px 4px 0 var(--color-charcoal);
+        }
+
+        .skill-category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 0 var(--color-yellow), 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .skill-category-card h3 {
+            /* Use the pixel font for category titles to make them feel like game menu items */
+            font-family: var(--font-accent); 
+            font-size: 1.1rem;
+            color: var(--color-yellow);
+            background-color: var(--color-charcoal);
+            padding: 8px 12px;
+            margin: -25px -25px 20px -25px;
+            border-bottom: 3px solid var(--color-yellow);
+            text-align: center;
+            text-shadow: none;
+            border-radius: 9px 9px 0 0;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .skill-list li {
+            font-size: 1rem;
+            padding: 5px 0;
+            border-bottom: 1px dotted var(--color-light-grey);
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-list li::before {
+            content: '✦'; /* Magical bullet point */
+            color: var(--color-yellow);
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* --- 8. FOOTER --- */
         .footer {
             background-color: var(--color-charcoal);
             color: var(--color-cream);
@@ -455,6 +567,18 @@
             .projects-grid {
                 gap: 20px;
             }
+            .skill-categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .achievement-box {
+                order: -1; /* Move achievement to the top on mobile */
+                margin-bottom: 20px;
+            }
         }
 
     </style>
@@ -485,11 +609,10 @@
                 <img src="https://i.namu.wiki/i/pHCw51W0Uet8MBAOYi5vcJNOzGMmpE388rwc9dUPBuo2tBjVuGjNKghRgSWRHcBqiQLeQeWOEY93_1VuANE7ZgZpaDEyOMXO_XM88eLLzZL-LxHwg2Mvh_WVCj1oBkpknVwZUzjN3YbASmKrBYGBGQ.webp" alt="Marisa Kirisame Full Render" class="static-marisa-render" onerror="this.onerror=null;this.src='https://placehold.co/250x300/2A363B/FFD700?text=Marisa+Render+Error';">
             </div>
 
-            <!-- Main Text Content Block -->
+            <!-- Main Text Content Block - Now just a punchier mission statement -->
             <div class="hero-text-content">
                 <h1>The Ordinary Security Magician.</h1>
-                <p>Welcome to my workshop! I'm Salman, though online I go by "Kirisame". I'm a cyber defender specializing in proactive, intelligence-led defense. 
-                    My philosophy is simple: be relentless. Try harder, get creative, and never stop stea... I meant borrowing much like my namesake, Marisa Kirisame. I embody the power of relentless effort over raw genius.. **Ze!**</p>
+                <p>Welcome to my workshop! I'm Salman, though online I go by **"Kirisame"**. I live in the chaos of **incident response** and am a cyber defender built for the storm, specializing in intelligence-led, proactive defense. Relentless effort over raw genius—that's the magic. **Ze!**</p>
                 <a href="#projects" class="btn-primary large">Explore My Grimoire</a>
             </div>
         </div>
@@ -498,6 +621,29 @@
         <div class="marisa-container">
             <!-- Source is set to the provided image file -->
             <img src="image.png" alt="Marisa Kirisame floating" class="marisa-gif" onerror="this.style.display='none'">
+        </div>
+    </section>
+    
+    <!-- About Me Section: The Magician's Dossier (New Dark Section) -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>// The Ordinary Magician's Dossier</h2>
+            <div class="about-content-grid">
+                
+                <div class="about-text">
+                    <p>I am Salman, I like to call myself kirisame online because of the values I share with marisa, we both have the same fire of curiousity and persistance, we both resolve incidents, we both brute force our problems overcoming all odds, even though I don't have a mini hakkero i will sure findn it soon</p>
+                                        
+                    <p>Currently, I'm pursuing a degree in Computer Engineering because it links physics to abstract security principles — letting me go from transistor-level behavior to kernel all the way to high-level defenses and statistical modeling.</p>
+
+                    <p>My end goal is clear: to be the person teams call when everything is on fire. Incident response, threat intelligence, and low-level defense work are where I want to make my impact.</p>
+                </div>
+                
+                <!-- Highlighted Achievement Box -->
+                <div class="achievement-box">
+                    <h3>Special Achievement: 1st Place - AWS GameDay</h3>
+                    <p>I formed and led a team in a real-time AWS networking and security simulation. I solely executed the defensive strategy, deploying an Application Load Balancer, mitigating a **HTTP flood attack** by writing a custom WAF rule, and optimizing logging costs. This led directly to achieving the **highest score** in the Networking & Security domain.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -528,6 +674,58 @@ regexes for log classification and analysis, mapped TTPs to the MITRE ATT&CK/D3F
 campaign through past report.</p>
                     <a href="https://github.com/0xKirisame/CipherAssessment" class="project-link">Read Grimoire Page &rarr;</a>
                 </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section: The Spell List -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2>// The Spell List & Grimoire Foundations</h2>
+            <div class="skill-categories-grid">
+
+                <!-- Skill Card 1: Incident Response/Blue Team -->
+                <div class="skill-category-card">
+                    <h3>Incidents: The Exorcism (IR & DFIR)</h3>
+                    <ul class="skill-list">
+                        <li>Volatility (Memory Forensics)</li>
+                        <li>Wireshark (Packet Analysis)</li>
+                        <li>Splunk / ELK Stack (SIEM & Log Aggregation)</li>
+                        <li>Operational Security (OpSec)</li>
+                    </ul>
+                </div>
+                
+                <!-- Skill Card 2: Adversarial Emulation/Red Team -->
+                <div class="skill-category-card">
+                    <h3>Offense: Master Spark (Emulation & Testing)</h3>
+                    <ul class="skill-list">
+                        <li>Nmap / Burp Suite (Recon & Web Testing)</li>
+                        <li>Metasploit (Exploitation Framework)</li>
+                        <li>Ghidra (Reverse Engineering)</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Card 3: Cloud and Automation -->
+                <div class="skill-category-card">
+                    <h3>Platform Magic: Hakkero Core (Cloud & Dev)</h3>
+                    <ul class="skill-list">
+                        <li>Google Cloud Platform (GCP) / AWS</li>
+                        <li>Python, Bash, PHP (Laravel), Java</li>
+                        <li>Git / Automation Pipelines</li>
+                    </ul>
+                </div>
+                
+                <!-- Skill Card 4: Low-Level and Deep Knowledge -->
+                <div class="skill-category-card">
+                    <h3>Deep Magic: Ancient Scripts (Low-Level)</h3>
+                    <ul class="skill-list">
+                        <li>Rust, Verilog, asm x86</li>
+                        <li>Linux (Arch), qemu KVM</li>
+                        <li>Vim (Efficiency)</li>
+                        <li>Data Engineering Principles</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </section>
