@@ -1,18 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Kirisame's cool website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kirisame.dev | Ordinary Magician's Grimoire</title>
+    <!-- Fonts for Touhou/Anime Aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Poppins:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. COLOR PALETTE & BASE --- */
+        :root {
+            --color-cream: #FAF0E6;      /* Background */
+            --color-yellow: #FFD700;     /* Gold/Master Spark (more vibrant) */
+            --color-charcoal: #2A363B;   /* Darker, starker black for outlines */
+            --color-light-grey: #D3D3D3; /* For subtle background details */
+            --font-heading: 'Cinzel Decorative', serif; /* More ornate */
+            --font-body: 'Poppins', sans-serif; /* Clean, modern anime feel */
+            --font-accent: 'Press Start 2P', cursive; /* Pixelated for certain elements */
+        }
+
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-charcoal);
+            background-color: var(--color-cream);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Grimoire Texture (Subtle Magic Circle) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkFGMEU2Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0QzRDMzMzIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN5PSIxNTAiIGN5PSIxNTAiIHI9IjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNEM0QzMzMyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz48L3N2Zz4=');
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--color-charcoal);
+            margin-bottom: 0.5em;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        /* --- 2. HEADER & NAVIGATION (The Hat Menu Tab) --- */
+        .navbar {
+            background-color: var(--color-charcoal);
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border-bottom: 5px solid var(--color-yellow); /* Strong Touhou border */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            /* Changed from var(--font-accent) to var(--font-heading) for a more elegant, magical look */
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-yellow);
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            font-weight: 700; /* Ensure it's bold with Cinzel Decorative */
+        }
+
+        .star {
+            color: var(--color-yellow);
+            display: inline-block;
+            animation: twinkle 1s infinite alternate;
+            font-size: 1.2em;
+            margin-left: 5px;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.8; transform: scale(1) rotate(0deg); }
+            to { opacity: 1; transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* NAVIGATION LINK STYLING: RPG Menu Tabs */
+        .navbar nav a {
+            color: var(--color-cream);
+            text-decoration: none;
+            margin-left: 5px;
+            padding: 8px 15px; /* Add padding to make them distinct tabs */
+            font-weight: 600;
+            transition: all 0.3s ease-out;
+            border: 2px solid transparent; /* Base border */
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar nav:has(a[href="#skills"]:hover) a[href="#skills"] {
+             /* A slight interaction rule for the link that is currently active/hovered */
+            color: var(--color-yellow);
+            background-color: rgba(255, 215, 0, 0.1);
+            border-color: var(--color-yellow); 
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .navbar nav a:hover {
+            color: var(--color-yellow);
+            background-color: rgba(255, 215, 0, 0.1); /* Light yellow background hover */
+            border-color: var(--color-yellow); /* Yellow border on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        /* Secondary Button for Contact (fits in nav but stands out) */
+        .btn-secondary {
+            display: inline-block;
+            margin-left: 20px !important; /* Override margin */
+            background-color: transparent !important;
+            color: var(--color-yellow) !important;
+            border: 2px solid var(--color-yellow) !important;
+            padding: 8px 15px !important;
+            border-radius: 5px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 var(--color-charcoal);
+            text-transform: uppercase; /* Match other nav links */
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-yellow) !important;
+            color: var(--color-charcoal) !important;
+            box-shadow: 0 0 15px var(--color-yellow);
+            transform: scale(1.05) !important;
+        }
+
+        /* --- 3. HERO SECTION (The Ordinary Magician's Entrance) --- */
+        .hero-section {
+            padding: 120px 0 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px dashed var(--color-charcoal);
+        }
+
+        /* Default center alignment for mobile */
+        .hero-text-content {
+            text-align: center;
+        }
+
+        .hero-text-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.2em;
+            color: var(--color-charcoal);
+            text-shadow: 4px 4px 0px var(--color-yellow);
+            line-height: 1.1;
+        }
+
+        .hero-text-content p {
+            font-family: var(--font-body);
+            font-size: 1.3rem;
+            margin-bottom: 2.5em;
+            font-weight: 500;
+            max-width: 800px;
+            /* Center alignment for mobile */
+            margin-left: auto;
+            margin-right: auto; 
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 2px solid var(--color-charcoal);
+            display: inline-block;
+        }
+
+        /* Marisa GIF (Floating, bottom-right) Styles */
+        .marisa-container {
+            position: absolute;
+            bottom: 0px;
+            right: 50px; 
+            width: 250px; 
+            height: 250px;
+            pointer-events: none; 
+            z-index: 500;
+        }
+
+        .marisa-gif {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+            animation: floatUpDown 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatUpDown {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); }
+        }
+
+        /* New Static Marisa Render Styles */
+        .hero-image-render {
+            /* Hidden by default on mobile */
+            display: none; 
+        }
+
+        .static-marisa-render {
+            /* INCREASED MAX WIDTH HERE */
+            max-width: 350px; 
+            height: auto;
+            
+            /* Leveraging PNG transparency for a dynamic glow effect! */
+            filter: 
+                drop-shadow(0 0 5px rgba(0, 0, 0, 0.4)) /* Base shadow for depth */
+                drop-shadow(0 0 15px var(--color-yellow)) /* Yellow glow */
+                drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)); /* Outer glow */
+            
+            transform: rotate(-3deg); /* Keep the slight tilt */
+            transition: all 0.3s ease;
+        }
+        .static-marisa-render:hover {
+            transform: rotate(0deg) scale(1.08); /* Increased hover scale */
+        }
+
+        /* Desktop Layout (Side-by-Side) */
+        @media (min-width: 900px) {
+            .hero-section .container.hero-layout {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                text-align: left; /* Alignment for the whole block */
+                max-width: 1000px; /* Constrain for better reading flow */
+            }
+            
+            .hero-image-render {
+                display: block; /* Show image on desktop */
+                order: -1; /* Place image on the left */
+            }
+            
+            .hero-text-content {
+                max-width: 550px; /* Give text more room */
+                text-align: left; /* Ensure text aligns left in its column */
+            }
+
+            /* Adjust text elements inside the text content block for left alignment */
+            .hero-text-content h1, 
+            .hero-text-content p,
+            .hero-text-content .btn-primary {
+                text-align: left;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            
+            .hero-text-content p {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        /* --- 4. BUTTONS (Master Spark Style) --- */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--color-yellow);
+            color: var(--color-charcoal);
+            padding: 12px 25px;
+            text-decoration: none;
+            border: 3px solid var(--color-charcoal);
+            border-radius: 8px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            box-shadow: 5px 5px 0 var(--color-charcoal);
+        }
+
+        .btn-primary.large {
+            padding: 18px 35px;
+            font-size: 1.2rem;
+            box-shadow: 7px 7px 0 var(--color-charcoal);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-charcoal);
+            color: var(--color-yellow);
+            box-shadow: 7px 7px 20px var(--color-yellow), 0 0 30px var(--color-yellow);
+            transform: translate(-2px, -2px);
+        }
+
+        /* --- 5. PROJECTS SECTION (The Grimoire) --- */
+        .projects-section {
+            padding: 80px 0;
+            background-color: var(--color-cream);
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .projects-section h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 5px;
+            background-color: var(--color-yellow);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background-color: var(--color-cream);
+            border: 4px solid var(--color-charcoal);
+            padding: 30px;
+            box-shadow: 8px 8px 0 var(--color-charcoal);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            /* Flex properties for equal height content */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card:hover {
+            transform: translate(-5px, -5px);
+            border-color: var(--color-yellow);
+            box-shadow: 10px 10px 20px rgba(255, 215, 0, 0.5), 0 0 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--color-light-grey);
+            padding-bottom: 5px;
+        }
+        
+        /* Rule to push the link button to the bottom */
+        .project-card p {
+            flex-grow: 1; 
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 2px solid var(--color-charcoal);
+            transition: all 0.2s ease-out;
+            padding-bottom: 2px;
+        }
+
+        .project-link:hover {
+            color: var(--color-yellow);
+            border-color: var(--color-yellow);
+            transform: translateX(5px);
+        }
+
+        /* --- 6. FOOTER --- */
+        .footer {
+            background-color: var(--color-charcoal);
+            color: var(--color-cream);
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 80px;
+            border-top: 3px solid var(--color-yellow);
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+            }
+            .navbar nav {
+                margin-top: 15px;
+            }
+            .navbar nav a {
+                margin: 0 5px;
+                display: block;
+                padding: 10px;
+                text-align: center;
+            }
+            .btn-secondary {
+                margin: 10px auto !important;
+            }
+            .hero-text-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section {
+                padding: 80px 0 50px 0;
+            }
+            .marisa-container {
+                position: static;
+                margin: 20px auto 0;
+                width: 150px;
+                height: 150px;
+            }
+            .projects-grid {
+                gap: 20px;
+            }
+        }
+
+    </style>
 </head>
 <body>
 
-<h1>The "Ordinary" Magical Security Witch</h1>
+    <!-- Header: The Magician's Hat Menu Tab -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Site Title updated to 0xKirisame and using the ornate Cinzel Decorative font -->
+            <div class="site-title">0xKirisame<span class="star">★</span></div>
+            <nav>
+                <!-- Navigation links styled as menu tabs -->
+                <a href="#about">About Me</a>
+                <a href="#projects">Grimoire</a>
+                <a href="#skills">Spell List</a>
+                <a href="mailto:contact@kirisame.dev" class="btn-secondary">Let's get in touch, ze!</a>
+            </nav>
+        </div>
+    </header>
 
-<img src="https://gifdb.com/images/high/marisa-kirisame-hats-off-458aptiy4zctyi7h.gif" alt="Marisa Kirisame taking off her hat"> 
-  
-<p>Hi, I'm Salman, though online I go by "Kirisame." I'm a cyber defender specializing in proactive, intelligence-led defense.</p>
-<p>My philosophy is simple: be relentless. Try harder, get creative, and never stop stea... I meant borrowing much like my namesake, Marisa Kirisame. I embody the power of relentless effort over raw genius.</p>
-<a href="mailto:contact@kirisame.dev">Let's get in touch!</a>
+    <!-- Hero Section: The Ordinary Magician's Entrance -->
+    <section class="hero-section">
+        <div class="container hero-layout">
+            <!-- New Static Marisa Render (Desktop Only) -->
+            <div class="hero-image-render">
+                <!-- Using the direct image URL from the DeviantArt page and adding a placeholder fallback -->
+                <img src="https://i.namu.wiki/i/pHCw51W0Uet8MBAOYi5vcJNOzGMmpE388rwc9dUPBuo2tBjVuGjNKghRgSWRHcBqiQLeQeWOEY93_1VuANE7ZgZpaDEyOMXO_XM88eLLzZL-LxHwg2Mvh_WVCj1oBkpknVwZUzjN3YbASmKrBYGBGQ.webp" alt="Marisa Kirisame Full Render" class="static-marisa-render" onerror="this.onerror=null;this.src='https://placehold.co/250x300/2A363B/FFD700?text=Marisa+Render+Error';">
+            </div>
+
+            <!-- Main Text Content Block -->
+            <div class="hero-text-content">
+                <h1>The Ordinary Security Magician.</h1>
+                <p>Welcome to my workshop! I'm Salman, though online I go by "Kirisame". I'm a cyber defender specializing in proactive, intelligence-led defense. 
+                    My philosophy is simple: be relentless. Try harder, get creative, and never stop stea... I meant borrowing much like my namesake, Marisa Kirisame. I embody the power of relentless effort over raw genius.. **Ze!**</p>
+                <a href="#projects" class="btn-primary large">Explore My Grimoire</a>
+            </div>
+        </div>
+        
+        <!-- Animated Marisa GIF (Mobile/Background element) -->
+        <div class="marisa-container">
+            <!-- Source is set to the provided image file -->
+            <img src="image.png" alt="Marisa Kirisame floating" class="marisa-gif" onerror="this.style.display='none'">
+        </div>
+    </section>
+
+    <!-- Projects Section: The Library of Treasures -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2>// Stolen Spells & Found Treasures</h2>
+            <div class="projects-grid">
+                <!-- Project Card 1 -->
+                <article class="project-card">
+                    <h3>[Spell Card] Flandre was hungery!</h3>
+                    <p>Flandre Was Hungry is a Python automation script that queries the OpenStreetMap (OSM) database for all cafés and bakeries within a 50 km radius of CCIS (King Saud University, Riyadh), and exports the results — including names, locations, and any available contact info — into an Excel file.
+
+Perfect for local outreach, PR stunts, or just stalking your next croissant.</p>
+                    <a href="https://github.com/0xKirisame/Flandre_was_hungry" class="project-link">Read Grimoire Page &rarr;</a>
+                </article>
+                <!-- Project Card 2 -->
+                <article class="project-card">
+                    <h3>[Stolen Item] Verilog dumps</h3>
+                    <p>a repo full of verilog code for different hardware components that I either wrote myself or in class such as: 2-1 bit comparator, 4 bit LSFR circuit, 8-3 MUX.</p>
+                    <a href="https://github.com/0xKirisame/Verilog_Dumps" class="project-link">Read Grimoire Page &rarr;</a>
+                </article>
+                <!-- Project Card 3 -->
+                <article class="project-card">
+                    <h3>[Personal Spell] CTI slef study</h3>
+                    <p>a threat intelligence report analyzing multiple security incidents. Automated IOC enrichment with custom scripts, wrote
+regexes for log classification and analysis, mapped TTPs to the MITRE ATT&CK/D3FEND frameworks, and analyzed an APT27 past
+campaign through past report.</p>
+                    <a href="https://github.com/0xKirisame/CipherAssessment" class="project-link">Read Grimoire Page &rarr;</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer: Kirisame Magic Shop -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 kirisame.dev. Keep an eye out for interesting items! **Ze.**</p>
+        </div>
+    </footer>
 
 </body>
 </html>
-
