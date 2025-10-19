@@ -3,721 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>kirisame's very cool website</title>
-    <link rel="icon" type="image/x-icon" href="https://pbs.twimg.com/media/CgvUp4wWMAAQ_Xl?format=jpg&name=240x240">
-    
-    <!-- Fonts for Touhou/Anime Aesthetic -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Poppins:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Salman Aljardan | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. COLOR PALETTE & BASE --- */
-        :root {
-            --color-cream: #FAF0E6;      /* Background */
-            --color-yellow: #FFD700;     /* Gold/Master Spark (more vibrant) */
-            --color-charcoal: #2A363B;   /* Darker, starker black for outlines */
-            --color-light-grey: #EBE3D0; /* Warmer Parchment/Light Tan for subtle background details */
-            --font-heading: 'Cinzel Decorative', serif; /* More ornate */
-            --font-body: 'Poppins', sans-serif; /* Clean, modern anime feel */
-            --font-accent: 'Press Start 2P', cursive; /* Pixelated for certain elements */
-        }
-
-        /* Reset and Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: var(--font-body);
-            color: var(--color-charcoal);
-            background-color: var(--color-cream);
-            line-height: 1.8;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Inter', sans-serif;
+            background-color: #111111;
+            color: #E5E5E5;
         }
-
-        /* Background Grimoire Texture (Subtle Magic Circle) */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkFGMEU2Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0QzRDMzMzIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN5PSIxNTAiIGN5PSIxNTAiIHI9IjI1IiBzY2FsZT0iMC41IiBmaWxsPSJub25lIiBzdHJva2U9IiNEM0QzMzMyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFhY2l0eT0iMC4zIi8+PC9zdmc+');
-            opacity: 0.3;
-            z-index: -1;
-            pointer-events: none;
+        .font-jp-serif {
+            font-family: 'Noto Serif JP', serif;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .section-title {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
         }
-
-        h1, h2, h3 {
-            font-family: var(--font-heading);
-            color: var(--color-charcoal);
-            margin-bottom: 0.5em;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-        }
-
-        /* --- 2. HEADER & NAVIGATION (The Hat Menu Tab) --- */
-        .navbar {
-            background-color: var(--color-charcoal);
-            padding: 15px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            border-bottom: 5px solid var(--color-yellow); /* Strong Touhou border */
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .site-title {
-            /* Changed from var(--font-accent) to var(--font-heading) for a more elegant, magical look */
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            color: var(--color-yellow);
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
-            font-weight: 700; /* Ensure it's bold with Cinzel Decorative */
-        }
-
-        .star {
-            color: var(--color-yellow);
-            display: inline-block;
-            animation: twinkle 1s infinite alternate;
-            font-size: 1.2em;
-            margin-left: 5px;
-        }
-
-        @keyframes twinkle {
-            from { opacity: 0.8; transform: scale(1) rotate(0deg); }
-            to { opacity: 1; transform: scale(1.1) rotate(5deg); }
-        }
-
-        /* NAVIGATION LINK STYLING: RPG Menu Tabs */
-        .navbar nav a {
-            color: var(--color-cream);
-            text-decoration: none;
-            margin-left: 5px;
-            padding: 8px 15px; /* Add padding to make them distinct tabs */
-            font-weight: 600;
-            transition: all 0.3s ease-out;
-            border: 2px solid transparent; /* Base border */
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .navbar nav a:hover,
-        .navbar nav a[href="#skills"]:focus {
-            color: var(--color-yellow);
-            background-color: rgba(255, 215, 0, 0.1); /* Light yellow background hover */
-            border-color: var(--color-yellow); /* Yellow border on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            border-radius: 4px;
-        }
-
-        /* Secondary Button for Contact (fits in nav but stands out) */
-        .btn-secondary {
-            display: inline-block;
-            margin-left: 20px !important; /* Override margin */
-            background-color: transparent !important;
-            color: var(--color-yellow) !important;
-            border: 2px solid var(--color-yellow) !important;
-            padding: 8px 15px !important;
-            border-radius: 5px;
-            font-weight: bold;
-            text-shadow: 1px 1px 0 var(--color-charcoal);
-            text-transform: uppercase; /* Match other nav links */
-            letter-spacing: 1px;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--color-yellow) !important;
-            color: var(--color-charcoal) !important;
-            box-shadow: 0 0 15px var(--color-yellow);
-            transform: scale(1.05) !important;
-        }
-
-        /* --- 3. HERO SECTION (The Ordinary Magician's Entrance) --- */
-        .hero-section {
-            padding: 120px 0 80px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-bottom: 5px dashed var(--color-charcoal);
-        }
-
-        /* Default center alignment for mobile */
-        .hero-text-content {
-            text-align: center;
-        }
-
-        .hero-text-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 0.2em;
-            color: var(--color-charcoal);
-            text-shadow: 4px 4px 0px var(--color-yellow);
-            line-height: 1.1;
-        }
-
-        .hero-text-content p {
-            font-family: var(--font-body);
-            font-size: 1.3rem;
-            margin-bottom: 2.5em;
-            font-weight: 500;
-            max-width: 800px;
-            /* Center alignment for mobile */
-            margin-left: auto;
-            margin-right: auto; 
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px 20px;
-            border-radius: 15px;
-            border: 2px solid var(--color-charcoal);
-            display: inline-block;
-        }
-
-        /* Marisa GIF (Floating, bottom-right) Styles */
-        .marisa-container {
-            position: absolute;
-            bottom: 0px;
-            right: 50px; 
-            width: 250px; 
-            height: 250px;
-            pointer-events: none; 
-            z-index: 500;
-        }
-
-        .marisa-gif {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
-            animation: floatUpDown 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatUpDown {
-            from { transform: translateY(0); }
-            to { transform: translateY(-15px); }
-        }
-
-        /* New Static Marisa Render Styles */
-        .hero-image-render {
-            /* Hidden by default on mobile */
-            display: none; 
-        }
-
-        .static-marisa-render {
-            /* INCREASED MAX WIDTH HERE */
-            max-width: 350px; 
-            height: auto;
-            
-            /* Leveraging PNG transparency for a dynamic glow effect! */
-            filter: 
-                drop-shadow(0 0 5px rgba(0, 0, 0, 0.4)) /* Base shadow for depth */
-                drop-shadow(0 0 15px var(--color-yellow)) /* Yellow glow */
-                drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)); /* Outer glow */
-            
-            transform: rotate(-3deg); /* Keep the slight tilt */
+        .card {
+            background-color: #1A1A1A;
+            border: 1px solid #333333;
             transition: all 0.3s ease;
         }
-        .static-marisa-render:hover {
-            transform: rotate(0deg) scale(1.08); /* Increased hover scale */
-        }
-
-        /* Desktop Layout (Side-by-Side) */
-        @media (min-width: 900px) {
-            .hero-section .container.hero-layout {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                text-align: left; /* Alignment for the whole block */
-                max-width: 1000px; /* Constrain for better reading flow */
-            }
-            
-            .hero-image-render {
-                display: block; /* Show image on desktop */
-                order: -1; /* Place image on the left */
-            }
-            
-            .hero-text-content {
-                max-width: 550px; /* Give text more room */
-                text-align: left; /* Ensure text aligns left in its column */
-            }
-
-            /* Adjust text elements inside the text content block for left alignment */
-            .hero-text-content h1, 
-            .hero-text-content p,
-            .hero-text-content .btn-primary {
-                text-align: left;
-                margin-left: 0;
-                margin-right: 0;
-            }
-            
-            .hero-text-content p {
-                display: block;
-                width: 100%;
-            }
-        }
-
-        /* --- 4. BUTTONS (Master Spark Style) --- */
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--color-yellow);
-            color: var(--color-charcoal);
-            padding: 12px 25px;
-            text-decoration: none;
-            border: 3px solid var(--color-charcoal);
-            border-radius: 8px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
-            box-shadow: 5px 5px 0 var(--color-charcoal);
-        }
-
-        .btn-primary.large {
-            padding: 18px 35px;
-            font-size: 1.2rem;
-            box-shadow: 7px 7px 0 var(--color-charcoal);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--color-charcoal);
-            color: var(--color-yellow);
-            box-shadow: 7px 7px 20px var(--color-yellow), 0 0 30px var(--color-yellow);
-            transform: translate(-2px, -2px);
-        }
-
-        /* --- 5. PROJECTS SECTION (The Grimoire) --- */
-        .projects-section {
-            padding: 80px 0;
-            background-color: var(--color-cream);
-            position: relative;
-            z-index: 1;
-        }
-
-        .projects-section h2,
-        .skills-section h2,
-        .about-section h2 { /* Added .about-section h2 */
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .projects-section h2::after,
-        .skills-section h2::after,
-        .about-section h2::after { /* Added .about-section h2::after */
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 5px;
-            background-color: var(--color-yellow);
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 3px;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .project-card {
-            background-color: var(--color-cream);
-            border: 4px solid var(--color-charcoal);
-            padding: 30px;
-            box-shadow: 8px 8px 0 var(--color-charcoal);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            /* Flex properties for equal height content */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0) 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease-out;
-            z-index: 0;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .project-card:hover {
-            transform: translate(-5px, -5px);
-            border-color: var(--color-yellow);
-            box-shadow: 10px 10px 20px rgba(255, 215, 0, 0.5), 0 0 25px rgba(255, 215, 0, 0.3);
-        }
-
-        .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            border-bottom: 2px solid var(--color-light-grey);
-            padding-bottom: 5px;
-        }
-        
-        /* Rule to push the link button to the bottom */
-        .project-card p {
-            flex-grow: 1; 
-            margin-bottom: 20px;
-        }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: var(--color-charcoal);
-            text-decoration: none;
-            font-weight: 700;
-            border-bottom: 2px solid var(--color-charcoal);
-            transition: all 0.2s ease-out;
-            padding-bottom: 2px;
-        }
-
-        .project-link:hover {
-            color: var(--color-yellow);
-            border-color: var(--color-yellow);
-            transform: translateX(5px);
-        }
-        
-        /* --- 6. SKILLS SECTION (Spell List) --- */
-        .skills-section {
-            padding: 80px 0;
-            background-color: var(--color-light-grey); /* Now using the warmer parchment color */
-            border-top: 5px dashed var(--color-charcoal);
-        }
-        
-        /* --- 7. ABOUT ME SECTION (The Magician's Dossier) --- */
-        .about-section {
-            padding: 80px 0;
-            background-color: var(--color-charcoal);
-            color: var(--color-cream);
-            border-top: 5px solid var(--color-yellow);
-            border-bottom: 5px solid var(--color-yellow);
-        }
-        
-        .about-section h2 {
-            color: var(--color-cream);
-        }
-        
-        .about-content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            align-items: center;
-        }
-        
-        .about-text p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-        
-        .achievement-box {
-            background-color: rgba(255, 215, 0, 0.1);
-            border: 3px solid var(--color-yellow);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-        
-        .achievement-box h3 {
-            color: var(--color-yellow);
-            font-family: var(--font-accent);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .achievement-box p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: var(--color-cream);
-        }
-        /* End of About Section Specific Styles */
-
-        .skill-categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-category-card {
-            background-color: var(--color-cream);
-            border: 3px solid var(--color-charcoal);
-            border-radius: 12px;
-            padding: 25px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 4px 4px 0 var(--color-charcoal);
-        }
-
-        .skill-category-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 8px 8px 0 var(--color-yellow), 0 0 15px rgba(255, 215, 0, 0.5);
+            border-color: #888888;
+        }
+        .tag {
+            background-color: #333333;
+            color: #CCCCCC;
+            transition: all 0.3s ease;
+        }
+        .tag:hover {
+            background-color: #444444;
+            color: #FFFFFF;
+        }
+        .border-accent {
+            border-color: #444444;
         }
 
-        .skill-category-card h3 {
-            /* Use the pixel font for category titles to make them feel like game menu items */
-            font-family: var(--font-accent); 
-            font-size: 1.1rem;
-            color: var(--color-yellow);
-            background-color: var(--color-charcoal);
-            padding: 8px 12px;
-            margin: -25px -25px 20px -25px;
-            border-bottom: 3px solid var(--color-yellow);
-            text-align: center;
-            text-shadow: none;
-            border-radius: 9px 9px 0 0;
+        /* Scrollbar styles for a more subtle look */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .skill-list {
-            list-style: none;
-            padding-left: 0;
+        ::-webkit-scrollbar-track {
+            background: #111111;
         }
-
-        .skill-list li {
-            font-size: 1rem;
-            padding: 5px 0;
-            border-bottom: 1px dotted var(--color-light-grey);
-            display: flex;
-            align-items: center;
-            font-weight: 500;
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 4px;
         }
-
-        .skill-list li:last-child {
-            border-bottom: none;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555555;
         }
-
-        .skill-list li::before {
-            content: '✦'; /* Magical bullet point */
-            color: var(--color-yellow);
-            margin-right: 10px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        
-        /* --- 8. FOOTER --- */
-        .footer {
-            background-color: var(--color-charcoal);
-            color: var(--color-cream);
-            text-align: center;
-            padding: 25px 0;
-            margin-top: 80px;
-            border-top: 3px solid var(--color-yellow);
-        }
-
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 768px) {
-            .navbar .container {
-                flex-direction: column;
-            }
-            .navbar nav {
-                margin-top: 15px;
-            }
-            .navbar nav a {
-                margin: 0 5px;
-                display: block;
-                padding: 10px;
-                text-align: center;
-            }
-            .btn-secondary {
-                margin: 10px auto !important;
-            }
-            .hero-text-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-section {
-                padding: 80px 0 50px 0;
-            }
-            .marisa-container {
-                position: static;
-                margin: 20px auto 0;
-                width: 150px;
-                height: 150px;
-            }
-            .projects-grid {
-                gap: 20px;
-            }
-            .skill-categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .achievement-box {
-                order: -1; /* Move achievement to the top on mobile */
-                margin-bottom: 20px;
-            }
-        }
-
     </style>
 </head>
-<body>
+<body class="antialiased">
+    <!-- Main Container --><div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
 
-    <!-- Header: The Magician's Hat Menu Tab -->
-    <header class="navbar">
-        <div class="container">
-            <!-- Site Title updated to 0xKirisame and using the ornate Cinzel Decorative font -->
-            <div class="site-title">0xKirisame<span class="star">★</span></div>
-            <nav>
-                <!-- Navigation links styled as menu tabs -->
-                <a href="#about">About Me</a>
-                <a href="#projects">Grimoire</a>
-                <a href="#skills">Spell List</a>
-                <a href="mailto:contact@kirisame.dev" class="btn-secondary">Let's get in touch, ze!</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section: The Ordinary Magician's Entrance -->
-    <section class="hero-section">
-        <div class="container hero-layout">
-            <!-- New Static Marisa Render (Desktop Only) -->
-                        <div class="hero-image-render">
-                <!-- Using the direct image URL from the DeviantArt page and adding a placeholder fallback -->
-                <img src="./images/Kirisame.png" alt="Marisa Kirisame Full Render" class="static-marisa-render" onerror="this.onerror=null;this.src='https://placehold.co/250x300/2A363B/FFD700?text=Marisa+Render+Error';">
-            </div>
-
-
-            <!-- Main Text Content Block - Now just a punchier mission statement -->
-            <div class="hero-text-content">
-                <h1>The Ordinary Security Magician.</h1>
-                <p>Welcome to my workshop! I'm Salman, though online I go by **"Kirisame"**. I live seek chaos to tame it and systemize it, Im a cyber defender built for the storm, specializing in intelligence-led, proactive defense. Relentless effort over raw genius—that's the magic. **Ze!**</p>
-                <a href="#projects" class="btn-primary large">Explore My Grimoire</a>
-            </div>
-        </div>
-        
-    </section>
-    
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2>// The Ordinary Magician's Diary</h2>
-            <div class="about-content-grid">
-                
-                <div class="about-text">
-                    <p>I am Salman, I like to call myself kirisame online because of the values I share with marisa, we both have the same fire of curiousity and persistance, we both resolve problems, we both brute force our problems overcoming all odds, even though I don't have a mini hakkero i will sure findn it soon</p>
-                                        
-                    <p>Currently, I'm pursuing a degree in Computer Engineering because it links physics to abstract security principles — letting me go from transistor-level behavior to kernel all the way to high-level defenses and statistical modeling.</p>
-
-                    <p>My end goal is clear: to be the person who equalizes the asymmetrical nature of security, automation, threat intelligence, and low-level defense work are where I want to make my impact.</p>
+        <!-- Hero Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-24">
+            <!-- Left: Title & Nav -->
+            <header>
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl lg:text-6xl font-jp-serif font-bold tracking-wider text-white">Salman Aljardan</h1>
+                    <p class="text-lg text-gray-400 mt-2">Aspiring Architect, Builder's Mindset</p>
                 </div>
-                
-                <!-- Highlighted Achievement Box -->
-                <div class="achievement-box">
-                    <h3>Special Achievement: 1st Place - AWS GameDay</h3>
-                    <p>I formed and led a team in a real-time AWS networking and security simulation. I solely took on the networking and security segment, deploying an Application Load Balancer, mitigating a live **HTTP flood attack** by writing a custom WAF rule, and optimizing logging costs. This led directly to achieving the **highest score** in the Networking & Security domain, and forth overall.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section: The Library of Treasures -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2>// Stolen Spells & Found Treasures</h2>
-            <div class="projects-grid">
-                <!-- Project Card 1 -->
-                <article class="project-card">
-                    <h3>[Spell Card] Flandre was hungery!</h3>
-                    <p>Flandre Was Hungry is a Python automation script that queries the OpenStreetMap (OSM) database for all cafés and bakeries within a 50 km radius of CCIS (King Saud University, Riyadh), and exports the results — including names, locations, and any available contact info — into an Excel file.
-
-Perfect for local outreach, PR stunts, or just stalking your next croissant.</p>
-                    <a href="https://github.com/0xKirisame/Flandre_was_hungry" class="project-link">Read Grimoire Page &rarr;</a>
-                </article>
-                <!-- Project Card 2 -->
-                <article class="project-card">
-                    <h3>[Stolen Item] Verilog dumps</h3>
-                    <p>a repo full of verilog code for different hardware components that I either wrote myself or in class such as: 2-1 bit comparator, 4 bit LSFR circuit, 8-3 MUX.</p>
-                    <a href="https://github.com/0xKirisame/Verilog_Dumps" class="project-link">Read Grimoire Page &rarr;</a>
-                </article>
-                <!-- Project Card 3 -->
-                <article class="project-card">
-                    <h3>[Personal Spell] CTI slef study</h3>
-                    <p>a threat intelligence report analyzing multiple security incidents. Automated IOC enrichment with custom scripts, wrote
-regexes for log classification and analysis, mapped TTPs to the MITRE ATT&CK/D3FEND frameworks, and analyzed an APT27 past
-campaign through past report.</p>
-                    <a href="https://github.com/0xKirisame/CipherAssessment" class="project-link">Read Grimoire Page &rarr;</a>
-                </article>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Skills Section: The Spell List -->
-    <section id="skills" class="skills-section">
-        <div class="container">
-            <h2>// The Spell List & Grimoire Foundations</h2>
-            <div class="skill-categories-grid">
-
-                <!-- Skill Card 1: Forensics -->
-                <div class="skill-category-card">
-                    <h3>Forensics: The Exorcism (DFIR)</h3>
-                    <ul class="skill-list">
-                        <li>Volatility (Memory Forensics)</li>
-                        <li>Wireshark (Packet Analysis)</li>
-                        <li>Splunk / ELK Stack (SIEM & Log Aggregation)</li>
-                        <li>Operational Security (OpSec)</li>
+                <nav class="mt-8">
+                    <ul class="flex justify-center md:justify-start space-x-6 text-gray-300">
+                        <li><a href="#about" class="hover:text-white transition-colors duration-300">Objective</a></li>
+                        <li><a href="#projects" class="hover:text-white transition-colors duration-300">Projects</a></li>
+                        <li><a href="#skills" class="hover:text-white transition-colors duration-300">Skills</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a></li>
                     </ul>
-                </div>
-
-                <div class="skill-category-card">
-                    <h3>Platform Magic: Hakkero Core (Cloud & Dev)</h3>
-                    <ul class="skill-list">
-                        <li>Google Cloud Platform (GCP) / AWS</li>
-                        <li>Python, Bash, PHP (Laravel), Java</li>
-                        <li>Git / Automation Pipelines</li>
-                    </ul>
-                </div>
-                
-                <div class="skill-category-card">
-                    <h3>Deep Magic: Ancient Scripts (Low-Level)</h3>
-                    <ul class="skill-list">
-                        <li>Rust, Verilog, asm x86</li>
-                        <li>Linux (Arch), qemu KVM</li>
-                        <li>Vim (Efficiency)</li>
-                        <li>Data Engineering Principles</li>
-                    </ul>
-                </div>
-
+                </nav>
+            </header>
+            
+            <!-- Right: Image -->
+            <div class="flex justify-center items-center order-first md:order-last">
+                <img src="./images/Removal-207.png" alt="Great General Tou" class="max-w-sm w-full h-auto" />
             </div>
         </div>
-    </section>
 
-    <!-- Footer: Kirisame Magic Shop -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 kirisame.dev. Keep an eye out for interesting items! **Ze.**</p>
-        </div>
-    </footer>
+        <main>
+            <!-- Objective Section --><section id="about" class="grid grid-cols-12 gap-8 mb-32 items-center">
+                <div class="col-span-1 hidden md:block text-center">
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">目標</h2>
+                </div>
+                <div class="col-span-11 md:col-span-10">
+                    <p class="text-xl md:text-2xl leading-relaxed text-gray-200">
+                        An aspiring architect with a builder's mindset, driven to understand technology at every level—from low-level systems to high-level cloud services. My objective is to use this deep, integrated knowledge to design innovative and elegant solutions to complex problems. I aim to create architectures where performance, scalability, and resilience are not afterthoughts, but the foundational principles of the master plan.
+                    </p>
+                    <blockquote class="mt-8 pl-4 border-l-2 border-gray-600">
+                        <p class="text-lg italic text-gray-400">"There are two things... First the death of my master has made you stronger. Second, I have always been strong."</p>
+                        <cite class="block text-right text-gray-500 mt-2 not-italic">&mdash; Tou to Moubou</cite>
+                    </blockquote>
+                </div>
+                 <div class="col-span-1 hidden md:block"></div>
+            </section>
 
+            <!-- Projects Section --><section id="projects" class="grid grid-cols-12 gap-8 mb-32">
+                <div class="col-span-1 hidden md:block text-center">
+                     <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">事業</h2>
+                </div>
+                <div class="col-span-12 md:col-span-11 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Project 1 --><div class="card rounded-lg p-6 flex flex-col">
+                        <h3 class="font-jp-serif text-2xl font-bold mb-2 text-white">Threat Intelligence & Incident Analysis Report</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Authored a multi-case threat intelligence report by developing custom regex to analyze 300+ logs, mapping attacker TTPs to the MITRE ATT&CK & D3FEND frameworks, and profiling the APT27 threat actor's C2 infrastructure.</p>
+                        <a href="https://github.com/0xKirisame/CTI-self-study" target="_blank" rel="noopener noreferrer" class="self-start text-gray-300 hover:text-white font-semibold transition-colors duration-300">View on GitHub &rarr;</a>
+                    </div>
+                    <!-- Project 2 --><div class="card rounded-lg p-6 flex flex-col">
+                        <h3 class="font-jp-serif text-2xl font-bold mb-2 text-white">AES-256-CBC Encrypted Java App</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Designed and built a secure Java to-do application featuring AES-256-CBC client-side encryption for user tasks. Architected a modular backend to ensure strong separation of concerns between application logic and the user interface.</p>
+                        <a href="https://github.com/Engineer-Salman/TaskMaster" target="_blank" rel="noopener noreferrer" class="self-start text-gray-300 hover:text-white font-semibold transition-colors duration-300">View on GitHub &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section --><section id="skills" class="grid grid-cols-12 gap-8 mb-32">
+                 <div class="col-span-1 hidden md:block text-center">
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">技術</h2>
+                </div>
+                <div class="col-span-12 md:col-span-11 space-y-8">
+                    <div>
+                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Programming</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tag rounded-md px-3 py-1 text-sm">Python</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Java</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Bash</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Rust</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Cloud & DevOps</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tag rounded-md px-3 py-1 text-sm">AWS</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">GCP</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Kubernetes</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Docker</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Terraform</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Cilium</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Forensics Tools</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tag rounded-md px-3 py-1 text-sm">Volatility</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Wireshark</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Splunk</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">ELK Stack</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Trivy</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Other</h3>
+                         <div class="flex flex-wrap gap-3">
+                            <span class="tag rounded-md px-3 py-1 text-sm">Linux(Arch)</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">KVM</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Vim</span>
+                            <span class="tag rounded-md px-3 py-1 text-sm">Verilog</span>
+                             <span class="tag rounded-md px-3 py-1 text-sm">Asm RISC-V</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Achievements & Certifications Section --><section id="achievements" class="grid grid-cols-12 gap-8 mb-32">
+                <div class="col-span-1 hidden md:block text-center">
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">功績</h2>
+                </div>
+                <div class="col-span-12 md:col-span-11 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Achievements --><div class="card rounded-lg p-6">
+                        <h3 class="font-jp-serif text-2xl font-bold mb-4 text-white">Achievements</h3>
+                        <div class="border-t border-accent pt-4">
+                             <h4 class="font-semibold text-gray-200">1st Place - AWS GameDay (Networking & Security)</h4>
+                             <p class="text-sm text-gray-500 mb-2">May 2025</p>
+                             <p class="text-gray-400">Led a team in a real-time AWS simulation, executing all networking and security tasks to achieve #1 score in networking and fourth overall.</p>
+                        </div>
+                    </div>
+                    <!-- Certifications --><div class="card rounded-lg p-6">
+                         <h3 class="font-jp-serif text-2xl font-bold mb-4 text-white">Certifications</h3>
+                         <ul class="space-y-4 border-t border-accent pt-4">
+                            <li class="text-gray-300"><span class="font-semibold">Google Cloud Infrastructure</span> - Tuwaiq Academy (2025)</li>
+                            <li class="text-gray-300"><span class="font-semibold">Jr. Penetration Tester Path</span> - TryHackMe (2025)</li>
+                            <li class="text-gray-300"><span class="font-semibold">IELTS: 7.5</span> (2023)</li>
+                         </ul>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+
+        <!-- Footer --><footer id="contact" class="border-t border-accent pt-8 text-center text-gray-500">
+            <p class="text-lg mb-4 text-gray-300">Get in touch</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="mailto:contact@kirisame.dev" class="text-gray-400 hover:text-white transition-colors duration-300">contact@kirisame.dev</a>
+                <span>&bull;</span>
+                <a href="tel:+966500294474" class="text-gray-400 hover:text-white transition-colors duration-300">+966 50 029 4474</a>
+                 <span>&bull;</span>
+                <a href="https://github.com/0xKirisame" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">GitHub</a>
+            </div>
+            <p class="text-sm">&copy; 2025 Salman Aljardan. All rights reserved.</p>
+        </footer>
+
+    </div>
 </body>
 </html>
+
+
+
+
