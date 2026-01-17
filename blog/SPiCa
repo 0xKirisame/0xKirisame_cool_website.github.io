@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star vs. Void | 0xKirisame</title>
+    <link rel="icon" href='../images/Tou.png'>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111111; color: #E5E5E5; }
+        h1, h2, h3 { font-family: 'Noto Serif JP', serif; color: white; margin-top: 2em; margin-bottom: 0.5em; }
+        p { margin-bottom: 1.5em; line-height: 1.8; color: #d1d5db; }
+        code { font-family: 'JetBrains Mono', monospace; background: #222; padding: 0.2em 0.4em; rounded: 4px; color: #ff79c6; font-size: 0.9em; }
+        pre { background: #1a1a1a; padding: 1.5em; border-radius: 8px; overflow-x: auto; border: 1px solid #333; margin-bottom: 2em; }
+        pre code { background: transparent; padding: 0; color: #f8f8f2; }
+        blockquote { border-left: 4px solid #ef4444; padding-left: 1em; color: #9ca3af; font-style: italic; margin-bottom: 1.5em; }
+        .math { font-family: 'Times New Roman', serif; font-style: italic; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto max-w-3xl px-4 py-16">
+        
+        <nav class="mb-12 flex justify-between items-center text-sm text-gray-500">
+            <a href="/blog" class="hover:text-white transition-colors">&larr; Back to Logs</a>
+            <span>2026-01-17</span>
+        </nav>
+
+        <header class="mb-12 border-b border-gray-800 pb-8">
+            <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">Star vs. Void: Hunting the 'Nysm' Stealth Container with eBPF</h1>
+            <div class="flex items-center gap-4">
+                <img src="../images/Tou.png" class="w-10 h-10 rounded-full border border-gray-700">
+                <span class="text-gray-300 font-medium">0xKirisame</span>
+            </div>
+        </header>
+
+        <article class="prose prose-invert max-w-none">
+            
+            <p>It started with a bet. I was accused of being "lazy" for releasing my eBPF-based rootkit detector, <strong>SPiCa</strong>, without validating it against "in-the-wild" malware.</p>
+
+            <p>The critics weren't wrong. Testing detection engineering against synthetic anomalies is easy. Testing it against a kernel-mode rootkit that actively fights back? That’s SRE nightmare fuel. But I don't like losing bets.</p>
+
+            <h2>The Combatants</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 my-8">
+                <div class="bg-[#1A1A1A] p-6 rounded border border-gray-800">
+                    <h3 class="!mt-0 text-xl text-blue-400">1. The Weapon: SPiCa 🌟</h3>
+                    <ul class="list-disc pl-5 text-sm text-gray-400 space-y-2 mt-2">
+                        <li><strong>Tech:</strong> Rust, Aya (eBPF), Tokio</li>
+                        <li><strong>Mechanism:</strong> Hooks <code>sched_switch</code> to track CPU execution.</li>
+                        <li><strong>Philosophy:</strong> "If it burns cycles, I can see it."</li>
+                    </ul>
+                </div>
+                <div class="bg-[#1A1A1A] p-6 rounded border border-gray-800">
+                    <h3 class="!mt-0 text-xl text-red-400">2. The Target: Nysm 👻</h3>
+                    <ul class="list-disc pl-5 text-sm text-gray-400 space-y-2 mt-2">
+                        <li><strong>Tech:</strong> C, libbpf</li>
+                        <li><strong>Mechanism:</strong> Hooks <code>getdents64</code> and <code>sys_enter_bpf</code>.</li>
+                        <li><strong>Philosophy:</strong> "You can't catch what isn't there."</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>The Battle: User Space vs. Kernel Space</h2>
+            <p>The theory was simple: Nysm hides processes from user space tools like <code>ps</code>, <code>top</code>, and <code>bpftool</code>. It does this by intercepting the syscalls those tools rely on and "scrubbing" the output.</p>
+            <p>SPiCa doesn't ask the syscall API for permission. It sits in the kernel, watching the scheduler itself.</p>
+
+            <h3>Round 1: The Failure</h3>
+            <p>I booted up my testing VM, compiled Nysm, and launched the infection:</p>
+            <pre><code>./bin/nysm -d sleep 10000</code></pre>
+            <p>I checked <code>ps aux</code>. The process was visible. <strong>Nysm failed.</strong> I checked SPiCa. It marked the process as "Clean." I panicked. Was Nysm broken? Was SPiCa broken?</p>
+
+            <h3>The Realization (Sudo !!#@$)</h3>
+            <p>It hit me like a <code>SIGKILL</code>. Nysm requires <code>CAP_SYS_ADMIN</code> to load its eBPF probes. Without <code>sudo</code>, it failed to load the cloaking mechanism but successfully spawned the child process. It wasn't a rootkit; it was just a wrapper script.</p>
+
+            <h3>Round 2: The Kill Shot</h3>
+            <p>I ran it again, properly this time: <code>sudo ./bin/nysm -d sleep 10000</code>.</p>
+            
+            <ol class="list-decimal pl-5 space-y-2 mb-6">
+                <li><strong>Terminal A:</strong> I ran <code>ps aux | grep sleep</code>. <span class="text-red-400 font-bold">Empty.</span> Nysm had successfully hooked <code>getdents64</code>.</li>
+                <li><strong>Terminal B:</strong> I checked <code>bpftool prog list</code>. <span class="text-red-400 font-bold">Clean.</span> Nysm had hooked <code>sys_enter_bpf</code> to hide its own probes.</li>
+                <li><strong>Terminal C (SPiCa):</strong></li>
+            </ol>
+
+            <pre><code class="text-green-400">[ROOTKIT DETECTED] PID: 1337 | NAME: sleep | HIDDEN FOR: 2.01s
+[CRITICAL] DKOM DETECTED: PID 1337 is active on CPU but invisible to syscalls!</code></pre>
+
+            <blockquote class="text-xl font-bold text-white border-l-4 border-green-500 pl-4 py-2 bg-gray-900">
+                Victory.
+            </blockquote>
+
+            <h2>How It Works (The Math)</h2>
+            <p>SPiCa maintains two "Orbits" (Hashmaps):</p>
+            <ul class="list-disc pl-5 mb-4">
+                <li><strong>Kernel Orbit:</strong> Populated by <code>sched/sched_switch</code>. Every time a task hits the CPU, its PID is recorded.</li>
+                <li><strong>User Orbit:</strong> Populated by scanning <code>/proc</code>.</li>
+            </ul>
+            
+            <p class="text-center font-mono text-lg bg-gray-900 p-4 rounded border border-gray-700">
+                Malice = KernelOrbit - UserOrbit
+            </p>
+
+            <p class="mt-4">Nysm deleted itself from the User Orbit. But it couldn't delete itself from the Kernel Orbit without stopping the process entirely.</p>
+
+            <hr class="border-gray-800 my-12">
+
+            <footer class="text-gray-500 text-sm">
+                <p>The code is open source. The Miku tribute is mandatory.</p>
+                <p>Repo: <a href="https://github.com/0xKirisame/SPiCa" class="text-blue-400 hover:underline">github.com/0xKirisame/SPiCa</a></p>
+            </footer>
+
+        </article>
+    </div>
+</body>
+</html>
