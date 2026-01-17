@@ -3,217 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salman Aljardan | Portfolio</title>
+    <title>Salman Aljardan | System Reliability Engineer</title>
     <link rel="icon" href='./images/Tou.png'>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111111;
+            background-color: #0a0a0a;
             color: #E5E5E5;
         }
-        .font-jp-serif {
-            font-family: 'Noto Serif JP', serif;
-        }
+        .font-jp-serif { font-family: 'Noto Serif JP', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* The Miku Accent Color */
+        .text-miku { color: #39C5BB; }
+        .bg-miku { background-color: #39C5BB; }
+        .border-miku { border-color: #39C5BB; }
+        .hover-miku:hover { color: #39C5BB; }
+        
         .section-title {
             writing-mode: vertical-rl;
             text-orientation: mixed;
             transform: rotate(180deg);
         }
+        
+        /* Cards */
         .card {
-            background-color: #1A1A1A;
-            border: 1px solid #333333;
+            background-color: #111111;
+            border: 1px solid #222;
             transition: all 0.3s ease;
         }
         .card:hover {
             transform: translateY(-5px);
-            border-color: #888888;
+            border-color: #39C5BB;
+            box-shadow: 0 4px 20px rgba(57, 197, 187, 0.1);
         }
+        
+        /* Tags */
         .tag {
-            background-color: #333333;
-            color: #CCCCCC;
-            transition: all 0.3s ease;
+            background-color: #1a1a1a;
+            color: #888;
+            border: 1px solid #333;
+            transition: all 0.2s ease;
         }
         .tag:hover {
-            background-color: #444444;
-            color: #FFFFFF;
-        }
-        .border-accent {
-            border-color: #444444;
-        }
-
-        /* Scrollbar styles for a more subtle look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333333;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555555;
+            border-color: #39C5BB;
+            color: #39C5BB;
         }
     </style>
 </head>
-<body class="antialiased">
-    <!-- Main Container --><div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
+<body class="antialiased selection:bg-[#39C5BB] selection:text-black">
+    <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
 
-        <!-- Hero Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-24">
-            <!-- Left: Title & Nav -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-32">
             <header>
                 <div class="text-center md:text-left">
-                    <h1 class="text-4xl lg:text-6xl font-jp-serif font-bold tracking-wider text-white">Salman Aljardan</h1>
-                    <p class="text-lg text-gray-400 mt-2">Aspiring Architect, Builder's Mindset</p>
+                    <p class="font-mono text-miku text-xs mb-2 tracking-widest">root@kirisame:~# whoami</p>
+                    <h1 class="text-5xl lg:text-7xl font-jp-serif font-bold tracking-tight text-white mb-4">
+                        Salman Aljardan
+                    </h1>
+                    <p class="text-xl text-gray-400 font-light">
+                        System Reliability Engineer. <span class="text-miku font-semibold">Builder.</span>
+                    </p>
                 </div>
-                <nav class="mt-8">
-                    <ul class="flex justify-center md:justify-start space-x-6 text-gray-300">
-                        <li><a href="#about" class="hover:text-white transition-colors duration-300">Objective</a></li>
-                        <li><a href="#projects" class="hover:text-white transition-colors duration-300">Projects</a></li>
-                        <li><a href="#skills" class="hover:text-white transition-colors duration-300">Skills</a></li>
-                        <li><a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a></li>
-                        <li><a href="/blog" class="hover:text-white transition-colors duration-300">Blog</a></li>
+                
+                <nav class="mt-10">
+                    <ul class="flex justify-center md:justify-start space-x-8 text-gray-400 font-mono text-sm">
+                        <li><a href="#projects" class="hover-miku transition-colors">[PROJECTS]</a></li>
+                        <li><a href="/blog" class="text-white border-b-2 border-miku pb-1 hover:text-miku transition-colors">[LOGS]</a></li>
+                        <li><a href="#experience" class="hover-miku transition-colors">[CAREER]</a></li>
+                        <li><a href="#skills" class="hover-miku transition-colors">[STACK]</a></li>
                     </ul>
                 </nav>
             </header>
             
-            <!-- Right: Image -->
-            <div class="flex justify-center items-center order-first md:order-last">
-                <img src="./images/Removal-207.png" alt="Great General Tou" class="max-w-sm w-full h-auto" />
+            <div class="flex justify-center md:justify-end">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-miku blur-[80px] opacity-20 rounded-full group-hover:opacity-30 transition-opacity duration-700"></div>
+                    <img src="./images/Tou.png" alt="Great General Tou" class="relative max-w-xs w-full grayscale group-hover:grayscale-0 transition-all duration-700" />
+                </div>
             </div>
         </div>
 
         <main>
-            <!-- Objective Section --><section id="about" class="grid grid-cols-12 gap-8 mb-32 items-center">
+            <section id="about" class="grid grid-cols-12 gap-8 mb-32 items-center">
                 <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">目標</h2>
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">目標</h2>
                 </div>
                 <div class="col-span-11 md:col-span-10">
-                    <p class="text-xl md:text-2xl leading-relaxed text-gray-200">
-                        An aspiring architect with a builder's mindset, driven to understand technology at every level—from low-level systems to high-level cloud services. My objective is to use this deep, integrated knowledge to design innovative and elegant solutions to complex problems. I aim to create architectures where performance, scalability, and resilience are not afterthoughts, but the foundational principles of the master plan.
+                    <p class="text-xl md:text-2xl leading-relaxed text-gray-300 font-light">
+                        I am an architect with the sole goal of building the perfect cloud fortress. From hardware acceleration & kernel optimizations to flawless cloud architecture, I ensure the perfect tool is used at the perfect moment. I don't just maintain uptime; I enforce it.
                     </p>
-                    <blockquote class="mt-8 pl-4 border-l-2 border-gray-600">
-                        <p class="text-lg italic text-gray-400">"There are two things... First the death of my master has made you stronger. Second, I have always been strong."</p>
-                        <cite class="block text-right text-gray-500 mt-2 not-italic">&mdash; Tou to Moubou</cite>
+                    <blockquote class="mt-8 pl-4 border-l-2 border-miku">
+                        <p class="text-lg italic text-gray-500">"There are two things... First the death of my master has made you stronger. Second, I have always been strong."</p>
+                        <cite class="block text-right text-gray-600 mt-2 font-mono text-xs tracking-wider">— GREAT GENERAL TOU</cite>
                     </blockquote>
                 </div>
-                 <div class="col-span-1 hidden md:block"></div>
             </section>
 
-            <!-- Projects Section --><section id="projects" class="grid grid-cols-12 gap-8 mb-32">
+            <section id="experience" class="grid grid-cols-12 gap-8 mb-32">
                 <div class="col-span-1 hidden md:block text-center">
-                     <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">事業</h2>
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">経験</h2>
+                </div>
+                <div class="col-span-12 md:col-span-11">
+                    <div class="card p-8 rounded-lg border-l-4 border-l-miku">
+                        <div class="flex flex-col md:flex-row justify-between mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Site Reliability Engineer</h3>
+                                <p class="text-miku font-mono text-sm">Entropy AI</p>
+                            </div>
+                            <span class="text-gray-500 font-mono text-sm">Nov 2025 - Present</span>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 leading-relaxed">
+                            <li>Diagnosed critical deadlocks in <strong>Metaflow/MinIO</strong> clusters and implemented a high-throughput internal HTTP service mesh.</li>
+                            <li>Hardened cluster security by deploying <strong>HashiCorp Vault</strong> on Kubernetes, migrating from static credentials to dynamic secrets.</li>
+                            <li>Engineered an Nginx reverse-proxy sidecar for header manipulation and a Node.js middleware for session pre-seeding.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="grid grid-cols-12 gap-8 mb-32">
+                <div class="col-span-1 hidden md:block text-center">
+                     <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">事業</h2>
                 </div>
                 <div class="col-span-12 md:col-span-11 grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Project 1 --><div class="card rounded-lg p-6 flex flex-col">
-                        <h3 class="font-jp-serif text-2xl font-bold mb-2 text-white">Threat Intelligence & Incident Analysis Report</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Authored a multi-case threat intelligence report by developing custom regex to analyze 300+ logs, mapping attacker TTPs to the MITRE ATT&CK & D3FEND frameworks, and profiling the APT27 threat actor's C2 infrastructure.</p>
-                        <a href="https://github.com/0xKirisame/CTI-self-study" target="_blank" rel="noopener noreferrer" class="self-start text-gray-300 hover:text-white font-semibold transition-colors duration-300">View on GitHub &rarr;</a>
+                    
+                    <a href="/blog/SPiCa.html" class="col-span-1 lg:col-span-2 card rounded-lg overflow-hidden group relative flex flex-col md:flex-row h-auto md:h-80">
+                        <div class="md:w-1/2 h-64 md:h-auto bg-gray-900 relative overflow-hidden">
+                            <img src="./images/spica_cover.png" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#111111]"></div>
+                        </div>
+                        <div class="p-8 md:w-1/2 flex flex-col justify-center bg-[#111111]">
+                            <div class="text-miku font-mono text-xs mb-2 tracking-widest">FEATURED PROJECT</div>
+                            <h3 class="text-3xl font-bold text-white mb-4 group-hover:text-miku transition-colors font-jp-serif">SPiCa</h3>
+                            <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                                A kernel-sovereign eBPF Rootkit Detection Engine written in Rust. Detects DKOM and PID Hollowing by monitoring the CPU scheduler directly, bypassing syscall tables.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag px-3 py-1 text-xs rounded">Rust</span>
+                                <span class="tag px-3 py-1 text-xs rounded">Aya (eBPF)</span>
+                                <span class="tag px-3 py-1 text-xs rounded">Security</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="card rounded-lg p-8 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-2 font-jp-serif">Memory Safe REPL Shell</h3>
+                        <p class="text-gray-400 mb-4 flex-grow text-sm">
+                            A POSIX-compliant shell with an FSM lexer written in Rust. Features REPL utilities, pipe handling, and safe binary execution.
+                        </p>
+                        <a href="https://github.com/0xKirisame/memory-safe-REPL-shell" target="_blank" class="self-start text-miku font-mono text-xs hover:underline">GITHUB -></a>
                     </div>
-                    <!-- Project 2 --><div class="card rounded-lg p-6 flex flex-col">
-                        <h3 class="font-jp-serif text-2xl font-bold mb-2 text-white">AES-256-CBC Encrypted Java App</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Designed and built a secure Java to-do application featuring AES-256-CBC client-side encryption for user tasks. Architected a modular backend to ensure strong separation of concerns between application logic and the user interface.</p>
-                        <a href="https://github.com/Engineer-Salman/TaskMaster" target="_blank" rel="noopener noreferrer" class="self-start text-gray-300 hover:text-white font-semibold transition-colors duration-300">View on GitHub &rarr;</a>
+
+                    <div class="card rounded-lg p-8 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-2 font-jp-serif">Threat Intelligence Report</h3>
+                        <p class="text-gray-400 mb-4 flex-grow text-sm">
+                            Multi-case threat intel report analyzing APT27. Mapped TTPs to MITRE ATT&CK and profiled C2 infrastructure using custom regex.
+                        </p>
+                        <a href="https://github.com/0xKirisame/CTI-self-study" target="_blank" class="self-start text-miku font-mono text-xs hover:underline">GITHUB -></a>
                     </div>
                 </div>
             </section>
 
-            <!-- Skills Section --><section id="skills" class="grid grid-cols-12 gap-8 mb-32">
+            <section id="skills" class="grid grid-cols-12 gap-8 mb-32">
                  <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">技術</h2>
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">技術</h2>
                 </div>
-                <div class="col-span-12 md:col-span-11 space-y-8">
-                    <div>
-                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Programming</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tag rounded-md px-3 py-1 text-sm">Python</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Java</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Bash</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Rust</span>
+                <div class="col-span-12 md:col-span-11 space-y-12">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div>
+                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">LANGUAGES</h3>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li><span class="text-miku">Rust</span></li>
+                                <li>Go</li>
+                                <li>Python</li>
+                                <li>C / Verilog</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div>
-                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Cloud & DevOps</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tag rounded-md px-3 py-1 text-sm">AWS</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">GCP</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Kubernetes</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Docker</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Terraform</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Cilium</span>
+                        <div>
+                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">CLOUD</h3>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li><span class="text-miku">Kubernetes</span></li>
+                                <li>AWS / GCP</li>
+                                <li>Terraform</li>
+                                <li>Cilium</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div>
-                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Forensics Tools</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tag rounded-md px-3 py-1 text-sm">Volatility</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Wireshark</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Splunk</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">ELK Stack</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Trivy</span>
+                        <div>
+                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">SECURITY</h3>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li><span class="text-miku">eBPF / XDP</span></li>
+                                <li>Splunk / ELK</li>
+                                <li>Volatility</li>
+                                <li>Wireshark</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div>
-                        <h3 class="font-jp-serif text-xl font-bold mb-4 text-gray-300">Other</h3>
-                         <div class="flex flex-wrap gap-3">
-                            <span class="tag rounded-md px-3 py-1 text-sm">Linux(Arch)</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">KVM</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Vim</span>
-                            <span class="tag rounded-md px-3 py-1 text-sm">Verilog</span>
-                             <span class="tag rounded-md px-3 py-1 text-sm">Asm RISC-V</span>
+                        <div>
+                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">SYSTEMS</h3>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>Arch Linux</li>
+                                <li>KVM</li>
+                                <li>RISC-V Asm</li>
+                                <li>HashiCorp Vault</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <!-- Achievements & Certifications Section --><section id="achievements" class="grid grid-cols-12 gap-8 mb-32">
+            <section id="achievements" class="grid grid-cols-12 gap-8 mb-32">
                 <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-600 tracking-widest">功績</h2>
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">功績</h2>
                 </div>
-                <div class="col-span-12 md:col-span-11 grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Achievements --><div class="card rounded-lg p-6">
-                        <h3 class="font-jp-serif text-2xl font-bold mb-4 text-white">Achievements</h3>
-                        <div class="border-t border-accent pt-4">
-                             <h4 class="font-semibold text-gray-200">1st Place - AWS GameDay (Networking & Security)</h4>
-                             <p class="text-sm text-gray-500 mb-2">May 2025</p>
-                             <p class="text-gray-400">Led a team in a real-time AWS simulation, executing all networking and security tasks to achieve #1 score in networking and fourth overall.</p>
-                        </div>
+                <div class="col-span-12 md:col-span-11 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card p-6 border-l-2 border-gray-700">
+                        <div class="text-xs font-mono text-gray-500 mb-1">MAY 2025</div>
+                        <h3 class="text-lg font-bold text-white font-jp-serif">1st Place - AWS GameDay</h3>
+                        <p class="text-gray-400 text-sm mt-2">Ranked #1 in Networking & Security category. Led the defense against real-time HTTP flood attacks and optimized VPC flow logging.</p>
                     </div>
-                    <!-- Certifications --><div class="card rounded-lg p-6">
-                         <h3 class="font-jp-serif text-2xl font-bold mb-4 text-white">Certifications</h3>
-                         <ul class="space-y-4 border-t border-accent pt-4">
-                            <li class="text-gray-300"><span class="font-semibold">Google Cloud Infrastructure</span> - Tuwaiq Academy (2025)</li>
-                            <li class="text-gray-300"><span class="font-semibold">Jr. Penetration Tester Path</span> - TryHackMe (2025)</li>
-                            <li class="text-gray-300"><span class="font-semibold">IELTS: 7.5</span> (2023)</li>
-                         </ul>
+                     <div class="card p-6 border-l-2 border-gray-700">
+                        <div class="text-xs font-mono text-gray-500 mb-1">CERTIFICATIONS</div>
+                        <ul class="text-sm text-gray-300 space-y-1 mt-2">
+                            <li>• Google Cloud Infrastructure (Tuwaiq)</li>
+                            <li>• Jr. Penetration Tester (TryHackMe)</li>
+                            <li>• IELTS 7.5</li>
+                        </ul>
                     </div>
                 </div>
             </section>
             
         </main>
 
-        <!-- Footer --><footer id="contact" class="border-t border-accent pt-8 text-center text-gray-500">
-            <p class="text-lg mb-4 text-gray-300">Get in touch</p>
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="mailto:contact@kirisame.dev" class="text-gray-400 hover:text-white transition-colors duration-300">contact@kirisame.dev</a>
-                <span>&bull;</span>
-                <a href="tel:+966500294474" class="text-gray-400 hover:text-white transition-colors duration-300">+966 50 029 4474</a>
-                 <span>&bull;</span>
-                <a href="https://github.com/0xKirisame" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">GitHub</a>
+        <footer id="contact" class="border-t border-[#222] pt-12 text-center">
+            <p class="font-mono text-miku mb-6 text-lg tracking-widest">INITIALIZE HANDSHAKE?</p>
+            <div class="flex justify-center space-x-8 mb-8 font-mono text-sm">
+                <a href="mailto:contact@kirisame.dev" class="text-gray-400 hover:text-white transition-colors">EMAIL</a>
+                <a href="https://github.com/0xKirisame" target="_blank" class="text-gray-400 hover:text-white transition-colors">GITHUB</a>
+                <a href="https://linkedin.com/in/salman-aljardan" target="_blank" class="text-gray-400 hover:text-white transition-colors">LINKEDIN</a>
             </div>
-            <p class="text-sm">&copy; 2025 Salman Aljardan. All rights reserved.</p>
+            <p class="text-xs text-gray-700 font-mono">
+                &copy; 2026 0xKirisame.
+            </p>
         </footer>
 
     </div>
 </body>
 </html>
-
-
-
-
