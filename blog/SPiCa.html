@@ -44,52 +44,54 @@
 
         <article class="prose prose-invert max-w-none">
             
-            <p class="text-xl text-gray-300 font-serif italic border-l-2 border-miku pl-4">
+            <p class="text-xl text-gray-300 font-serif italic border-l-2 border-miku pl-4 mb-12">
                 "I'm going to sing, so shine bright, SPiCa..."
             </p>
 
-            <p>
-                A few weeks ago, I was playing <em>Hatsune Miku Project Diva 2nd F</em> on my PS Vita. I was grinding the song <strong>"SPiCa -39's Giving Day Edition-"</strong>, and something about the lyrics made me curious. I paused the game and looked it up.
-            </p>
+            <div class="text-justify space-y-6">
+                <p>
+                    A few weeks ago, I was playing <em>Hatsune Miku Project Diva 2nd F</em> on my PS Vita. I was grinding the song <strong>"SPiCa -39's Giving Day Edition-"</strong>, and something about the lyrics made me curious. I paused the game and looked it up.
+                </p>
 
-            <p>
-                I discovered that Spica isn't just a name. It’s the brightest star in the Virgo constellation and a binary star system. It’s not one massive star, but two distinct stars spinning in perfect harmony, so close together that they appear as one single, brilliant point of light in the night sky.
-            </p>
+                <p>
+                    I discovered that Spica isn't just a name. It’s the brightest star in the Virgo constellation and a binary star system. It’s not one massive star, but two distinct stars spinning in perfect harmony, so close together that they appear as one single, brilliant point of light in the night sky.
+                </p>
 
-            <p>
-                That explanation immediately painted an image in my mind: <strong>The Kernel and The User Space.</strong>
-            </p>
+                <p>
+                    That explanation immediately painted an image in my mind: <strong>The Kernel and The User Space.</strong>
+                </p>
 
-            <p>
-                Ideally, they are like binary stars—spinning in harmony, perfectly synchronized, always understanding each other. But then it hit me: <em>Do they always spin in harmony?</em>
-            </p>
+                <p>
+                    Ideally, they are like binary stars—spinning in harmony, perfectly synchronized, always understanding each other. But then it hit me: <em>Do they always spin in harmony?</em>
+                </p>
 
-            <p>
-                No. Rootkits exist. They poison the relationship. They decouple the reality of the Kernel from the perception of the User. They ruin the harmony.
-            </p>
+                <p>
+                    No. Rootkits exist. They poison the relationship. They decouple the reality of the Kernel from the perception of the User. They ruin the harmony.
+                </p>
 
-            <p>
-                That’s when I realized that my idea for a rootkit detector—based on differential analysis—was actually the engineering equivalent of that binary star system. I looked at existing tools, mostly built on LKMs (Loadable Kernel Modules) and C++. They were powerful, sure, but unstable. A bug there bricks your kernel.
-            </p>
+                <p>
+                    That’s when I realized that my idea for a rootkit detector—based on differential analysis—was actually the engineering equivalent of that binary star system. I looked at existing tools, mostly built on LKMs (Loadable Kernel Modules) and C++. They were powerful, sure, but unstable. A bug there bricks your kernel.
+                </p>
 
-            <p>
-                What does the world need now? A detector that is stable, safe, and fast. That is why I wrote <strong>SPiCa</strong> in Rust using the Aya eBPF stack.
-            </p>
+                <p>
+                    What does the world need now? A detector that is stable, safe, and fast. That is why I wrote <strong>SPiCa</strong> in Rust using the Aya eBPF stack.
+                </p>
+            </div>
 
             <hr class="border-gray-800 my-12">
 
             <h2>SPiCa: System Process Integrity & Cross-view Analysis</h2>
 
-            <p>
-                SPiCa is a high-performance, eBPF-based rootkit detection engine. Inspired by Miku watching over us, SPiCa acts as that "Binary Star"—enforcing <strong>Kernel Sovereignty</strong> by establishing a ground truth based on CPU execution rather than relying on potentially compromised system APIs.
+            <p class="text-justify">
+                SPiCa is a high-performance, eBPF-based rootkit detection engine. Inspired by the miku song by toku, SPiCa acts as that "Binary Star"—enforcing <strong>Kernel Sovereignty</strong> by establishing a ground truth based on CPU execution rather than relying on potentially compromised system APIs.
             </p>
 
             <div class="bg-gray-900 rounded-lg p-6 border border-gray-800 my-8">
                 <h3 class="!mt-0 text-lg font-bold text-gray-200 mb-4">The "Layer 0" Argument</h3>
-                <p class="text-sm">
+                <p class="text-sm text-justify">
                     Some people argue that SPiCa is only effective in Layer 0 (Kernel) and is irrelevant in the cloud age. I argue the opposite.
                 </p>
-                <p class="text-sm mb-0">
+                <p class="text-sm mb-0 text-justify">
                     In the Cloud Shared Responsibility Model, everything above Layer 0 is the user's problem. While the provider handles the hypervisor and firmware, the <strong>guest kernel</strong> is your territory. If an attacker owns your kernel, they own your data. SPiCa defends that sovereignty.
                 </p>
             </div>
@@ -146,7 +148,7 @@
             </div>
 
             <h3>Detection Logic</h3>
-            <ul class="list-none pl-0 space-y-4">
+            <div class="mb-8"></div> <ul class="list-none pl-0 space-y-4">
                 <li class="flex gap-4">
                     <span class="text-green-500 font-mono font-bold">CLEAN</span>
                     <span class="text-gray-400">The process executes on the CPU and is correctly reported by the OS. Harmony.</span>
@@ -169,7 +171,7 @@
                 <strong>⚠️ DEV NOTE:</strong> Masquerade Detection (PID Hollowing) is currently under active construction. The hooks are in place, but the userspace logic is landing in v1.2.
             </blockquote>
 
-            <h3>Technology Stack</h3>
+            <div class="mb-8"></div> <h3>Technology Stack</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm font-mono mt-6">
                 <div class="bg-gray-800 p-2 rounded text-orange-400">Rust</div>
                 <div class="bg-gray-800 p-2 rounded text-blue-400">Aya (eBPF)</div>
