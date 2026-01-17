@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salman Aljardan | System Reliability Engineer</title>
+    <title>Salman Aljardan | Site Reliability Engineer</title>
     <link rel="icon" href='./images/Tou.png'>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +66,7 @@
                         Salman Aljardan
                     </h1>
                     <p class="text-xl text-gray-400 font-light">
-                        System Reliability Engineer. <span class="text-miku font-semibold">Builder.</span>
+                        Site Reliability Engineer. <span class="text-miku font-semibold">Builder.</span>
                     </p>
                 </div>
                 
@@ -75,7 +75,7 @@
                         <li><a href="#projects" class="hover-miku transition-colors">[PROJECTS]</a></li>
                         <li><a href="/blog" class="text-white border-b-2 border-miku pb-1 hover:text-miku transition-colors">[LOGS]</a></li>
                         <li><a href="#experience" class="hover-miku transition-colors">[CAREER]</a></li>
-                        <li><a href="#skills" class="hover-miku transition-colors">[STACK]</a></li>
+                        <li><a href="#volunteering" class="hover-miku transition-colors">[OPS]</a></li>
                     </ul>
                 </nav>
             </header>
@@ -117,9 +117,8 @@
                             </div>
                             <span class="text-gray-500 font-mono text-sm">Nov 2025 - Present</span>
                         </div>
-                        <ul class="list-disc list-inside space-y-2 text-gray-400 leading-relaxed">
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 leading-relaxed text-sm md:text-base">
                             <li>Diagnosed critical deadlocks in <strong>Metaflow/MinIO</strong> clusters and implemented a high-throughput internal HTTP service mesh.</li>
-                            <li>Hardened cluster security by deploying <strong>HashiCorp Vault</strong> on Kubernetes, migrating from static credentials to dynamic secrets.</li>
                             <li>Engineered an Nginx reverse-proxy sidecar for header manipulation and a Node.js middleware for session pre-seeding.</li>
                         </ul>
                     </div>
@@ -166,6 +165,42 @@
                         </p>
                         <a href="https://github.com/0xKirisame/CTI-self-study" target="_blank" class="self-start text-miku font-mono text-xs hover:underline">GITHUB -></a>
                     </div>
+                </div>
+            </section>
+
+            <section id="volunteering" class="grid grid-cols-12 gap-8 mb-32">
+                <div class="col-span-1 hidden md:block text-center">
+                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">活動</h2>
+                </div>
+                <div class="col-span-12 md:col-span-11 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <a href="https://ftcgamebox.com" target="_blank" class="card p-8 rounded-lg group block">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-miku transition-colors">GameBox Hackathon</h3>
+                                <p class="text-gray-500 font-mono text-xs mt-1">Technical Operations Lead</p>
+                            </div>
+                            <span class="text-gray-600 font-mono text-xs border border-gray-800 px-2 py-1 rounded">Nov 2025</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Replaced physical booths with a serverless web-expo. Architected an S3/CloudFront pipeline to serve <strong>WASM-compiled games</strong> directly to browsers, and conducted security pentesting to patch metadata leaks.
+                        </p>
+                        <span class="text-miku text-xs font-mono hover:underline">ftcgamebox.com -></span>
+                    </a>
+
+                    <div class="card p-8 rounded-lg">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Future Technology Club</h3>
+                                <p class="text-gray-500 font-mono text-xs mt-1">Public Relations & Intel</p>
+                            </div>
+                            <span class="text-gray-600 font-mono text-xs border border-gray-800 px-2 py-1 rounded">2025</span>
+                        </div>
+                        <p class="text-gray-400 text-sm">
+                            Developed <strong class="text-white">"Flandre Was Hungry"</strong>, a Python OSINT tool. Harvested OpenStreetMap data to auto-generate intelligence reports on 300+ businesses, optimizing sponsorship targeting.
+                        </p>
+                    </div>
+
                 </div>
             </section>
 
