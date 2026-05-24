@@ -1,0 +1,73 @@
+.blog-body {
+  font-family: 'Inter', sans-serif;
+  background-color: #111111;
+  color: #e5e5e5;
+}
+
+.blog-body h1,
+.blog-body h2,
+.blog-body h3,
+.blog-body h4 {
+  font-family: 'Noto Serif JP', serif;
+  color: white;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.blog-body p {
+  margin-bottom: 1.2em;
+  line-height: 1.8;
+  color: #d1d5db;
+}
+
+.blog-body code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #222;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  color: #ff79c6;
+  font-size: 0.9em;
+}
+
+.blog-body pre {
+  background: #1a1a1a;
+  padding: 1.5em;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid #333;
+  margin-bottom: 2em;
+}
+
+.blog-body pre code {
+  background: transparent;
+  padding: 0;
+  color: #f8f8f2;
+}
+
+.blog-body blockquote {
+  border-left: 4px solid #ef4444;
+  padding-left: 1em;
+  color: #9ca3af;
+  font-style: italic;
+  margin-bottom: 1.5em;
+  background: rgba(239, 68, 68, 0.05);
+  padding: 1rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.diagram-box {
+  border: 1px solid #333;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  background: #1a1a1a;
+}
+
+.text-miku { color: #39C5BB; }
+.border-miku { border-color: #39C5BB; }
+.bg-miku-dim { background-color: rgba(57, 197, 187, 0.1); }
+.shadow-miku { box-shadow: 0 0 30px rgba(57, 197, 187, 0.15); }
+
+.font-jp-serif { font-family: 'Noto Serif JP', serif; }
+
+.card:hover { transform: translateY(-5px); border-color: #888888; }
