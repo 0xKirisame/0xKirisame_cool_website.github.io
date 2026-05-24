@@ -6,6 +6,14 @@
    Self-hosted Google Fonts - @font-face rules
    ============================================ */
 
+@font-face {
+    font-family: 'Granix'; /* Change this to the actual name of your font */
+    /* Make sure this filename matches exactly what you dropped in the folder! */
+    src: url('/fonts/Granix-Demo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+
 /* Syncopate 400 - latin-ext */
 @font-face {
   font-family: 'Syncopate';

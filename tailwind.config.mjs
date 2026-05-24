@@ -13,6 +13,7 @@ export default {
         wide: ['Syncopate', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
         jp: ['Noto Serif JP', 'serif'],
+        esoteric: ['Granix', 'sans-serif'],
       },
       boxShadow: {
         'hard-miku': '8px 8px 0px 0px #39C5BB',
