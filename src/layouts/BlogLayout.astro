@@ -81,7 +81,7 @@ const { frontmatter } = Astro.props;
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        window.addEventListener('load', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             gsap.set("#page-curtain-container", { backgroundColor: "transparent" });
             gsap.to(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%", duration: 1.2, stagger: 0.15, ease: "power4.inOut", delay: 0.3 });
             gsap.fromTo(".gsap-slide", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power4.out", delay: 0.8, clearProps: "transform" });
