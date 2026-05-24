@@ -3,289 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salman Aljardan | Site Reliability Engineer</title>
-    <link rel="icon" href='./images/Tou.png'>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>0xKirisame // SYSTEM.CORE</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=JetBrains+Mono:wght@400;700;800&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        miku: '#39C5BB',
+                        alert: '#FF0055',
+                        void: '#000000',
+                        paper: '#FAFAFA'
+                    },
+                    fontFamily: {
+                        'wide': ['Syncopate', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'jp': ['Noto Serif JP', 'serif']
+                    },
+                    boxShadow: {
+                        'hard-miku': '8px 8px 0px 0px #39C5BB',
+                        'hard-alert': '8px 8px 0px 0px #FF0055',
+                        'hard-black': '8px 8px 0px 0px #000000',
+                        'hard-white': '8px 8px 0px 0px #FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #E5E5E5;
+            background-color: #FAFAFA;
+            color: #000000;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(#e5e5e5 2px, transparent 2px),
+                linear-gradient(90deg, #e5e5e5 2px, transparent 2px);
+            background-size: 60px 60px;
         }
-        .font-jp-serif { font-family: 'Noto Serif JP', serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        
-        /* The Miku Accent Color */
-        .text-miku { color: #39C5BB; }
-        .bg-miku { background-color: #39C5BB; }
-        .border-miku { border-color: #39C5BB; }
-        .hover-miku:hover { color: #39C5BB; }
-        
-        .section-title {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
+
+        /* Bottom NHK News Style Ticker */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background-color: #000;
+            white-space: nowrap;
         }
-        
-        /* Cards */
-        .card {
-            background-color: #111111;
-            border: 1px solid #222;
-            transition: all 0.3s ease;
+        .ticker {
+            display: inline-block;
+            animation: ticker 20s linear infinite;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #39C5BB;
-            box-shadow: 0 4px 20px rgba(57, 197, 187, 0.1);
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
-        
-        /* Tags */
-        .tag {
-            background-color: #1a1a1a;
-            color: #888;
-            border: 1px solid #333;
-            transition: all 0.2s ease;
+
+        /* Danmaku Layer */
+        #danmaku-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
-        .tag:hover {
-            border-color: #39C5BB;
+        .danmaku-bullet {
+            position: absolute;
+            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: rgba(0,0,0,0.06);
+            font-weight: bold;
+            will-change: transform;
+        }
+
+        /* Wireframe UI Elements */
+        .wireframe-box {
+            border: 4px solid #000;
+            background: rgba(255, 255, 255, 1);
+            position: relative;
+        }
+        .wireframe-box::before, .wireframe-box::after {
+            content: '+';
+            position: absolute;
+            font-family: monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
             color: #39C5BB;
+            line-height: 0.5;
+        }
+        .wireframe-box::before { top: -12px; left: -12px; }
+        .wireframe-box::after { bottom: -12px; right: -12px; }
+
+        /* Project Diva Timing Rings */
+        .diva-nav {
+            position: relative;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            transition: color 0.2s;
+            cursor: pointer;
+            background: #fff;
+            border: 3px solid #000;
+        }
+        .diva-nav::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 120%; height: 120%;
+            border: 3px solid transparent;
+            transform: translate(-50%, -50%) scale(1.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50%;
+        }
+        .diva-nav:hover { color: #39C5BB; box-shadow: 4px 4px 0px 0px #000; }
+        .diva-nav:hover::before {
+            border-color: #39C5BB;
+            transform: translate(-50%, -50%) scale(1);
+            border-radius: 0;
+        }
+
+        /* Utility */
+        .z-content { z-index: 10; position: relative; }
+        .glitch-hover:hover {
+            background-color: #000;
+            color: #fff;
+            transform: skewX(-10deg);
+        }
+
+        /* TEXTURES FOR VECTORHEART BACKGROUND */
+        .ribbed-black {
+            background: repeating-linear-gradient(
+                90deg,
+                #000,
+                #000 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+        .ribbed-alert {
+            background: repeating-linear-gradient(
+                90deg,
+                #FF0055,
+                #FF0055 5px,
+                transparent 5px,
+                transparent 15px
+            );
+        }
+        .ribbed-miku {
+            background: repeating-linear-gradient(
+                0deg,
+                #39C5BB,
+                #39C5BB 8px,
+                transparent 8px,
+                transparent 16px
+            );
         }
     </style>
 </head>
-<body class="antialiased selection:bg-[#39C5BB] selection:text-black">
-    <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+<body class="antialiased selection:bg-miku selection:text-void font-mono">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-32">
-            <header>
-                <div class="text-center md:text-left">
-                    <p class="font-mono text-miku text-xs mb-2 tracking-widest">root@kirisame:~# whoami</p>
-                    <h1 class="text-5xl lg:text-7xl font-jp-serif font-bold tracking-tight text-white mb-4">
-                        Salman Aljardan
-                    </h1>
-                    <p class="text-xl text-gray-400 font-light">
-                        Site Reliability Engineer. <span class="text-miku font-semibold">Builder.</span>
-                    </p>
-                </div>
+    <div id="page-curtain" class="fixed inset-0 z-[9999] pointer-events-none flex flex-col justify-center overflow-hidden">
+        <div class="curtain-stripe w-[150vw] h-[40vh] bg-void -rotate-12 translate-x-[-150%] translate-y-[30%] shadow-hard-miku"></div>
+        <div class="curtain-stripe w-[150vw] h-[40vh] bg-miku -rotate-12 translate-x-[150%]"></div>
+        <div class="curtain-stripe w-[150vw] h-[40vh] bg-alert -rotate-12 translate-x-[-150%] translate-y-[-30%] shadow-hard-black"></div>
+    </div>
+
+    <div id="danmaku-layer"></div>
+
+    <header class="relative w-full h-[70vh] min-h-[600px] overflow-hidden border-b-[8px] border-black flex items-center justify-center">
+        
+        <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+            <div class="relative w-full h-full transform -rotate-[35deg] scale-125 md:scale-110 flex justify-center items-center">
                 
-                <nav class="mt-8 md:mt-10">
-                    <ul class="flex flex-wrap justify-center md:justify-start gap-4 md:space-x-8 text-gray-400 font-mono text-sm">
-                        <li><a href="#projects" class="hover-miku transition-colors">[PROJECTS]</a></li>
-                        <li><a href="/blog" class="text-white border-b-2 border-miku pb-1 hover:text-miku transition-colors">[LOGS]</a></li>
-                        <li><a href="#experience" class="hover-miku transition-colors">[CAREER]</a></li>
-                        <li><a href="#volunteering" class="hover-miku transition-colors">[OPS]</a></li>
-                    </ul>
-                </nav>
-            </header>
-            
-            <div class="flex justify-center md:justify-end mt-8 md:mt-0">
-                <div class="relative group">
-                    <div class="absolute inset-0 bg-miku blur-[60px] md:blur-[80px] opacity-20 rounded-full group-hover:opacity-30 transition-opacity duration-700"></div>
-                    <img src="./images/Tou.png" alt="Great General Tou" class="relative max-w-[200px] md:max-w-xs w-full grayscale group-hover:grayscale-0 transition-all duration-700" />
+                <div class="absolute w-[180px] h-[200vh] bg-void flex flex-col justify-center items-center gap-12 shadow-hard-miku">
+                    <div class="w-32 h-32 border-[12px] border-paper rounded-full flex items-center justify-center">
+                        <div class="w-16 h-16 bg-alert rounded-full"></div>
+                    </div>
+                    <div class="w-40 h-[100px] ribbed-miku"></div>
+                    <div class="font-wide text-white text-6xl font-black rotate-90 tracking-widest mt-32 whitespace-nowrap">0xKIRISAME</div>
+                    <div class="w-32 h-32 bg-paper rounded-full border-[8px] border-void flex items-center justify-center shadow-[inset_0_0_0_8px_#FF0055]"></div>
                 </div>
+
+                <div class="absolute -ml-[280px] mt-[150px] flex flex-col gap-4">
+                    <div class="w-[60px] h-[150vh] bg-alert relative border-r-[8px] border-void">
+                        <div class="absolute top-[20%] -right-[60px] font-wide text-void text-8xl font-black rotate-90 opacity-20">SYS</div>
+                    </div>
+                    <div class="w-[120px] h-[500px] bg-paper border-[8px] border-void absolute top-[10%] -left-[140px] flex flex-col justify-between p-4 shadow-hard-alert">
+                        <div class="w-full h-20 ribbed-black"></div>
+                        <div class="font-wide text-4xl font-black rotate-90 -ml-8">>> SP-iCa</div>
+                    </div>
+                    <div class="w-[20px] h-[200vh] bg-void absolute -left-[200px] top-[-50vh]"></div>
+                </div>
+
+                <div class="absolute ml-[320px] -mt-[200px] flex gap-6">
+                    <div class="w-[80px] h-[200vh] bg-miku shadow-hard-black flex flex-col items-center pt-64 gap-8">
+                        <div class="w-16 h-16 border-[8px] border-void rounded-full"></div>
+                        <div class="font-wide text-void text-4xl font-black rotate-90 mt-16 whitespace-nowrap"><< EXIT <<</div>
+                    </div>
+                    <div class="w-[12px] h-[200vh] bg-void mt-[100px]"></div>
+                    <div class="w-[4px] h-[200vh] bg-alert mt-[150px]"></div>
+                    <div class="w-[30px] h-[200vh] ribbed-alert mt-[200px]"></div>
+                    
+                    <div class="absolute top-[40%] left-[120px] flex flex-col gap-2">
+                        <svg class="w-24 h-24 text-void" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                        <svg class="w-24 h-24 text-miku -mt-12" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    </div>
+                </div>
+
+                <div class="absolute w-[200vh] h-[40px] bg-void rotate-90 top-1/2 left-[-50vw] opacity-20 mix-blend-overlay"></div>
+                <div class="absolute w-[200vh] h-[20px] bg-alert rotate-90 top-[40%] left-[-40vw]"></div>
             </div>
         </div>
 
-        <main>
-            <section id="about" class="grid grid-cols-12 gap-4 md:gap-8 mb-16 md:mb-32 items-center">
-                <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">目標</h2>
-                </div>
-                <div class="col-span-12 md:col-span-11 md:col-start-2">
-                    <p class="text-lg md:text-2xl leading-relaxed text-gray-300 font-light text-center md:text-left">
-                        I am an architect with the sole goal of building the perfect cloud fortress. From hardware acceleration & kernel optimizations to flawless cloud architecture, I ensure the perfect tool is used at the perfect moment. I don't just maintain uptime; I enforce it.
-                    </p>
-                    <blockquote class="mt-8 pl-4 border-l-2 border-miku mx-auto md:mx-0 max-w-2xl md:max-w-none">
-                        <p class="text-base md:text-lg italic text-gray-500">"There are two things... First the death of my master has made you stronger. Second, I have always been strong."</p>
-                        <cite class="block text-right text-gray-600 mt-2 font-mono text-xs tracking-wider">— GREAT GENERAL TOU</cite>
-                    </blockquote>
-                </div>
-            </section>
-
-            <section id="experience" class="grid grid-cols-12 gap-4 md:gap-8 mb-16 md:mb-32">
-                <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">経験</h2>
-                </div>
-                <div class="col-span-12 md:col-span-11 md:col-start-2">
-                    <div class="card p-6 md:p-8 rounded-lg border-l-4 border-l-miku">
-                        <div class="flex flex-col md:flex-row justify-between mb-4">
-                            <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">Site Reliability Engineer</h3>
-                                <p class="text-miku font-mono text-sm">Entropy AI</p>
-                            </div>
-                            <span class="text-gray-500 font-mono text-sm mt-1 md:mt-0">Nov 2025 - Present</span>
-                        </div>
-                        <ul class="list-disc list-inside space-y-2 text-gray-400 leading-relaxed text-sm md:text-base">
-                            <li>Diagnosed critical deadlocks in <strong>Metaflow/MinIO</strong> clusters and implemented a high-throughput internal HTTP service mesh.</li>
-                            <li>Engineered an Nginx reverse-proxy sidecar for header manipulation and a Node.js middleware for session pre-seeding.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects" class="grid grid-cols-12 gap-4 md:gap-8 mb-16 md:mb-32">
-                <div class="col-span-1 hidden md:block text-center">
-                     <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">事業</h2>
-                </div>
-                <div class="col-span-12 md:col-span-11 md:col-start-2 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-                    
-                    <a href="/blog/SPiCa.html" class="col-span-1 lg:col-span-2 card rounded-lg overflow-hidden group relative flex flex-col md:flex-row h-auto md:h-80">
-                        <div class="md:w-1/2 h-48 md:h-auto bg-gray-900 relative overflow-hidden">
-                            <img src="./images/spica_cover.png" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#111111]"></div>
-                        </div>
-                        <div class="p-6 md:p-8 md:w-1/2 flex flex-col justify-center bg-[#111111]">
-                            <div class="text-miku font-mono text-xs mb-2 tracking-widest">FEATURED PROJECT</div>
-                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-miku transition-colors font-jp-serif">SPiCa</h3>
-                            <p class="text-gray-400 mb-6 text-sm leading-relaxed">
-                                A kernel-sovereign eBPF Rootkit Detection Engine written in Rust. Detects DKOM and PID Hollowing by monitoring the CPU scheduler directly, bypassing syscall tables.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag px-3 py-1 text-xs rounded">Rust</span>
-                                <span class="tag px-3 py-1 text-xs rounded">Aya (eBPF)</span>
-                                <span class="tag px-3 py-1 text-xs rounded">Security</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <div class="card rounded-lg p-6 md:p-8 flex flex-col">
-                        <h3 class="text-lg md:text-xl font-bold text-white mb-2 font-jp-serif">Memory Safe REPL Shell</h3>
-                        <p class="text-gray-400 mb-4 flex-grow text-sm">
-                            A POSIX-compliant shell with an FSM lexer written in Rust. Features REPL utilities, pipe handling, and safe binary execution.
-                        </p>
-                        <a href="https://github.com/0xKirisame/memory-safe-REPL-shell" target="_blank" class="self-start text-miku font-mono text-xs hover:underline">GITHUB -></a>
-                    </div>
-
-                    <div class="card rounded-lg p-6 md:p-8 flex flex-col">
-                        <h3 class="text-lg md:text-xl font-bold text-white mb-2 font-jp-serif">Threat Intelligence Report</h3>
-                        <p class="text-gray-400 mb-4 flex-grow text-sm">
-                            Multi-case threat intel report analyzing APT27. Mapped TTPs to MITRE ATT&CK and profiled C2 infrastructure using custom regex.
-                        </p>
-                        <a href="https://github.com/0xKirisame/CTI-self-study" target="_blank" class="self-start text-miku font-mono text-xs hover:underline">GITHUB -></a>
-                    </div>
-                </div>
-            </section>
-
-            <section id="volunteering" class="grid grid-cols-12 gap-4 md:gap-8 mb-16 md:mb-32">
-                <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">活動</h2>
-                </div>
-                <div class="col-span-12 md:col-span-11 md:col-start-2 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    
-                    <a href="https://ftcgamebox.com" target="_blank" class="card p-6 md:p-8 rounded-lg group block">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-miku transition-colors">GameBox Hackathon</h3>
-                                <p class="text-gray-500 font-mono text-xs mt-1">Technical Operations</p>
-                            </div>
-                            <span class="text-gray-600 font-mono text-xs border border-gray-800 px-2 py-1 rounded">Nov 2025</span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">
-                            Replaced physical booths with a serverless web-expo. Architected an S3/CloudFront pipeline to serve <strong>WASM-compiled games</strong> directly to browsers, and conducted security pentesting to patch metadata leaks.
-                        </p>
-                        <span class="text-miku text-xs font-mono hover:underline">ftcgamebox.com -></span>
-                    </a>
-
-                    <a href="https://github.com/0xKirisame/Flandre_was_hungry" target="_blank" class="card p-6 md:p-8 rounded-lg group block">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-miku transition-colors">Future Technology Club</h3>
-                                <p class="text-gray-500 font-mono text-xs mt-1">Public Relations & Intel</p>
-                            </div>
-                            <span class="text-gray-600 font-mono text-xs border border-gray-800 px-2 py-1 rounded">2025</span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">
-                            Developed <strong class="text-white">"Flandre Was Hungry"</strong>, a Python OSINT tool. Harvested OpenStreetMap data to auto-generate intelligence reports on 300+ businesses, optimizing sponsorship targeting.
-                        </p>
-                        <span class="text-miku text-xs font-mono hover:underline">GITHUB -></span>
-                    </a>
-
-                </div>
-            </section>
-
-            <section id="skills" class="grid grid-cols-12 gap-4 md:gap-8 mb-16 md:mb-32">
-                 <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">技術</h2>
-                </div>
-                <div class="col-span-12 md:col-span-11 md:col-start-2 space-y-12">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div>
-                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">LANGUAGES</h3>
-                            <ul class="space-y-2 text-gray-300 text-sm">
-                                <li><span class="text-miku">Rust</span></li>
-                                <li>Go</li>
-                                <li>Python</li>
-                                <li>C / Verilog</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">CLOUD</h3>
-                            <ul class="space-y-2 text-gray-300 text-sm">
-                                <li><span class="text-miku">Kubernetes</span></li>
-                                <li>AWS / GCP</li>
-                                <li>Terraform</li>
-                                <li>Cilium</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">SECURITY</h3>
-                            <ul class="space-y-2 text-gray-300 text-sm">
-                                <li><span class="text-miku">eBPF / XDP</span></li>
-                                <li>Splunk / ELK</li>
-                                <li>Volatility</li>
-                                <li>Wireshark</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-mono text-gray-500 text-xs mb-4 tracking-widest">SYSTEMS</h3>
-                            <ul class="space-y-2 text-gray-300 text-sm">
-                                <li>Arch Linux</li>
-                                <li>KVM</li>
-                                <li>RISC-V Asm</li>
-                                <li>HashiCorp Vault</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div class="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 mt-auto mb-16 flex flex-col md:flex-row justify-between items-end gsap-slide">
             
-            <section id="achievements" class="grid grid-cols-12 gap-4 md:gap-8 mb-16 md:mb-32">
-                <div class="col-span-1 hidden md:block text-center">
-                    <h2 class="section-title font-jp-serif text-3xl text-gray-700 tracking-widest">功績</h2>
+            <div class="wireframe-box p-6 md:p-10 shadow-hard-miku max-w-2xl bg-white/95 backdrop-blur-sm">
+                <p class="text-alert font-bold tracking-[0.4em] mb-4 text-sm uppercase flex items-center gap-2">
+                    <span class="w-3 h-3 bg-alert animate-pulse inline-block"></span> 
+                    USER_ID: 0xKIRISAME
+                </p>
+                <h1 class="font-wide text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6 text-void">
+                    Salman<br>
+                    <span class="text-transparent" style="-webkit-text-stroke: 3px #000;">Aljardan</span>
+                </h1>
+                <div class="flex flex-wrap gap-4 font-black text-sm tracking-widest bg-void text-white p-3 inline-block shadow-[6px_6px_0_0_#FF0055] uppercase">
+                    <span>SRE</span> // <span>DEVOPS</span> // <span class="text-miku">KERNEL_SEC</span>
                 </div>
-                <div class="col-span-12 md:col-span-11 md:col-start-2 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    <div class="card p-6 md:p-8 border-l-2 border-gray-700">
-                        <div class="text-xs font-mono text-gray-500 mb-1">MAY 2025</div>
-                        <h3 class="text-lg md:text-xl font-bold text-white font-jp-serif">1st Place - AWS GameDay</h3>
-                        <p class="text-gray-400 text-sm mt-2">Ranked #1 in Networking & Security category. Led the defense against real-time HTTP flood attacks and optimized VPC flow logging.</p>
-                    </div>
-                     <div class="card p-6 md:p-8 border-l-2 border-gray-700">
-                        <div class="text-xs font-mono text-gray-500 mb-1">CERTIFICATIONS</div>
-                        <ul class="text-sm text-gray-300 space-y-1 mt-2">
-                            <li>• Google Cloud Infrastructure (Tuwaiq)</li>
-                            <li>• Jr. Penetration Tester (TryHackMe)</li>
-                            <li>• IELTS 7.5</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
-        </main>
-
-        <footer id="contact" class="border-t border-[#222] pt-12 text-center">
-            <p class="font-mono text-miku mb-6 text-lg tracking-widest">INITIALIZE HANDSHAKE?</p>
-            <div class="flex justify-center space-x-8 mb-8 font-mono text-sm">
-                <a href="mailto:contact@kirisame.dev" class="text-gray-400 hover:text-white transition-colors">EMAIL</a>
-                <a href="https://github.com/0xKirisame" target="_blank" class="text-gray-400 hover:text-white transition-colors">GITHUB</a>
-                <a href="https://linkedin.com/in/salman-aljardan" target="_blank" class="text-gray-400 hover:text-white transition-colors">LINKEDIN</a>
             </div>
-            <p class="text-xs text-gray-700 font-mono">
-                &copy; 2026 0xKirisame.
-            </p>
-        </footer>
+            
+            <nav class="mt-8 md:mt-0 grid grid-cols-1 gap-4 w-full md:w-auto">
+                <a href="#setlist" class="diva-nav text-center shadow-hard-black">Setlist</a>
+                <a href="/blog/index.html" class="diva-nav text-miku text-center shadow-hard-black page-link">Logs</a>
+                <a href="#ops" class="diva-nav text-center shadow-hard-black">Ops</a>
+            </nav>
+        </div>
+    </header>
 
+    <main class="max-w-[1000px] mx-auto px-4 md:px-8 py-24 z-content">
+        <div class="flex flex-col gap-16" id="setlist">
+            
+            <a href="/blog/SPiCa.html" class="gsap-slide wireframe-box flex flex-col md:flex-row group shadow-hard-black hover:shadow-hard-miku transition-all duration-300 bg-white cursor-pointer block page-link items-stretch">
+                <div class="w-full md:w-2/5 min-h-[300px] border-b-[4px] md:border-b-0 md:border-r-[4px] border-black relative overflow-hidden bg-black p-2 flex-shrink-0 flex items-center justify-center">
+                    <img src="./images/spica_cover.png" class="absolute inset-0 w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 mix-blend-luminosity">
+                    <div class="absolute top-4 left-4 bg-miku text-black px-4 py-2 text-xs font-black font-wide animate-pulse shadow-hard-black z-10 border-2 border-black">FEATURED_TRACK</div>
+                    <div class="absolute w-16 h-16 border-[4px] border-alert rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center scale-50 group-hover:scale-100">
+                        <div class="w-[140%] h-[4px] bg-alert absolute"></div>
+                        <div class="h-[140%] w-[4px] bg-alert absolute"></div>
+                    </div>
+                </div>
+                <div class="p-8 w-full md:w-3/5 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-wide text-5xl font-black group-hover:text-miku transition-colors uppercase">SPiCa</h3>
+                            <span class="text-xs font-black tracking-widest bg-black text-white px-3 py-1 shadow-[4px_4px_0_0_#39C5BB]">V_1.2</span>
+                        </div>
+                        <p class="font-bold text-alert text-xs tracking-widest mb-6 uppercase border-b-4 border-black inline-block pb-2">Binary Star Systems & Kernel Sovereignty</p>
+                        <p class="text-base leading-relaxed mb-8 font-bold font-mono text-gray-800">
+                            A kernel-sovereign eBPF Rootkit Detection Engine written in Rust. Detects DKOM and PID Hollowing by monitoring the CPU scheduler directly, bypassing syscall tables. Restoring harmony between Kernel and User space.
+                        </p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="border-[4px] border-black px-4 py-2 text-sm font-black uppercase glitch-hover transition-colors shadow-[4px_4px_0_0_#000]">Rust</span>
+                        <span class="border-[4px] border-black px-4 py-2 text-sm font-black uppercase glitch-hover transition-colors shadow-[4px_4px_0_0_#000]">Aya eBPF</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="gsap-slide wireframe-box p-8 bg-white shadow-hard-black flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                    <div>
+                        <h3 class="font-wide text-3xl font-black mb-4 uppercase">Entropy AI</h3>
+                        <p class="text-miku font-black tracking-widest text-xs mb-6 bg-void text-white p-2 inline-block">SRE // PRESENT</p>
+                        <p class="text-sm font-bold mb-4 font-mono leading-relaxed text-gray-800">
+                            Diagnosed critical deadlocks in Metaflow/MinIO clusters. Engineered internal HTTP service mesh & Nginx reverse-proxy sidecars.
+                        </p>
+                    </div>
+                    <span class="text-xs tracking-widest font-black uppercase border-t-[4px] border-black pt-4 w-full text-alert mt-6 block">STATUS: ACTIVE</span>
+                </div>
+
+                <a href="https://github.com/0xKirisame/memory-safe-REPL-shell" target="_blank" class="gsap-slide wireframe-box p-8 bg-miku text-black shadow-hard-black flex flex-col justify-between hover:bg-black hover:text-miku transition-colors duration-300 group outline-none">
+                    <div>
+                        <h3 class="font-wide text-3xl font-black mb-4 uppercase group-hover:text-white transition-colors">Mem-Safe REPL</h3>
+                        <p class="font-black tracking-widest text-xs mb-6 bg-white group-hover:bg-alert group-hover:text-white text-void p-2 inline-block transition-colors">RUST SHELL</p>
+                        <p class="text-sm font-bold mb-4 font-mono leading-relaxed text-void group-hover:text-gray-300 transition-colors">
+                            FSM lexer written in Rust. Features REPL utilities, pipe handling, and safe binary execution.
+                        </p>
+                    </div>
+                    <span class="text-xs tracking-widest font-black uppercase border-t-[4px] border-black pt-4 w-full group-hover:border-miku transition-colors mt-6 block">GITHUB -></span>
+                </a>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="ticker-wrap fixed bottom-0 left-0 py-3 font-black tracking-[0.4em] uppercase border-t-[6px] border-black text-black bg-white shadow-[0_-10px_20px_rgba(0,0,0,0.15)] text-xs z-50">
+        <div class="ticker" style="animation-direction: reverse;">
+            <span class="mr-16">SECURE_LINK //</span>
+            <span class="mr-16 hover:text-miku transition-colors cursor-pointer">GITHUB.COM/0XKIRISAME //</span>
+            <span class="mr-16 text-alert hover:text-void transition-colors cursor-pointer">CONTACT@KIRISAME.DEV //</span>
+            <span class="mr-16">SECURE_LINK //</span>
+            <span class="mr-16 hover:text-miku transition-colors cursor-pointer">GITHUB.COM/0XKIRISAME //</span>
+            <span class="mr-16 text-alert hover:text-void transition-colors cursor-pointer">CONTACT@KIRISAME.DEV //</span>
+            <span class="mr-16">SECURE_LINK //</span>
+            <span class="mr-16 hover:text-miku transition-colors cursor-pointer">GITHUB.COM/0XKIRISAME //</span>
+            <span class="mr-16 text-alert hover:text-void transition-colors cursor-pointer">CONTACT@KIRISAME.DEV //</span>
+        </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // 1. PAGE LOAD REVEAL
+        window.addEventListener('load', () => {
+            gsap.to(".curtain-stripe", {
+                x: (index) => index % 2 === 0 ? "150%" : "-150%",
+                duration: 0.9,
+                stagger: 0.1,
+                ease: "power4.inOut",
+                delay: 0.2 
+            });
+
+            gsap.from(".gsap-slide", {
+                y: 100,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power4.out",
+                delay: 0.7
+            });
+        });
+
+        // 2. PAGE EXIT ANIMATION
+        document.querySelectorAll('a.page-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                const targetUrl = link.getAttribute('href');
+                
+                gsap.fromTo(".curtain-stripe", 
+                    { x: (index) => index % 2 === 0 ? "150%" : "-150%" }, 
+                    { 
+                        x: "0%", 
+                        duration: 0.6, 
+                        stagger: 0.1, 
+                        ease: "power4.inOut",
+                        onComplete: () => {
+                            window.location.href = targetUrl;
+                        }
+                    }
+                );
+            });
+        });
+
+        // 3. DANMAKU (Bullet Curtain)
+        const danmakuLayer = document.getElementById('danmaku-layer');
+        const technicalTerms = [
+            "0xFFFFFF", "sched_switch", "PID_HOLLOWING", "Aya_eBPF", 
+            "sys_execve", "DKOM_DETECTED", "0xKIRISAME", "vmlinux", 
+            "ptrace", "kprobe", "bpf_map_lookup", "Vec<u8>", 
+            "KERNEL_PANIC", "VOCALOID_01", "39's_GIVING_DAY"
+        ];
+
+        function createDanmaku() {
+            const el = document.createElement('div');
+            el.className = 'danmaku-bullet';
+            el.innerText = technicalTerms[Math.floor(Math.random() * technicalTerms.length)];
+            
+            const startY = Math.random() * window.innerHeight;
+            el.style.top = `${startY}px`;
+            el.style.left = '100vw';
+            
+            danmakuLayer.appendChild(el);
+
+            const duration = 8 + Math.random() * 12; 
+            
+            gsap.to(el, {
+                x: -window.innerWidth - 400, 
+                duration: duration,
+                ease: "none",
+                onComplete: () => {
+                    el.remove();
+                }
+            });
+        }
+
+        setInterval(createDanmaku, 400);
+        for(let i=0; i<30; i++) {
+            setTimeout(createDanmaku, Math.random() * 2000);
+        }
+    </script>
 </body>
 </html>
