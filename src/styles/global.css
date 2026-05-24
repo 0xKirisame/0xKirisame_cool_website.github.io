@@ -1280,7 +1280,6 @@ body {
 .ticker-wrap {
   width: 100%;
   overflow: hidden;
-  background-color: #000;
   white-space: nowrap;
 }
 .ticker {
