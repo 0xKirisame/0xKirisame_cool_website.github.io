@@ -1,3 +1,132 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<html><body><h1>placeholder</h1></body></html>
+
+<BaseLayout title="0xKirisame // SYSTEM.CORE">
+    <header class="relative w-full h-[70vh] min-h-[600px] overflow-hidden border-b-[8px] border-black flex items-center justify-center">
+
+        <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+            <div class="relative w-full h-full transform -rotate-[35deg] scale-125 md:scale-110 flex justify-center items-center">
+
+                <div class="absolute w-[180px] h-[200vh] bg-void flex flex-col justify-center items-center gap-12 shadow-hard-miku">
+                    <div class="w-32 h-32 border-[12px] border-paper rounded-full flex items-center justify-center">
+                        <div class="w-16 h-16 bg-alert rounded-full"></div>
+                    </div>
+                    <div class="w-40 h-[100px] ribbed-miku"></div>
+                    <div class="font-wide text-white text-6xl font-black rotate-90 tracking-widest mt-32 whitespace-nowrap">0xKIRISAME</div>
+                    <div class="w-32 h-32 bg-paper rounded-full border-[8px] border-void flex items-center justify-center shadow-[inset_0_0_0_8px_#FF0055]"></div>
+                </div>
+
+                <div class="absolute -ml-[280px] mt-[150px] flex flex-col gap-4">
+                    <div class="w-[60px] h-[150vh] bg-alert relative border-r-[8px] border-void">
+                        <div class="absolute top-[20%] -right-[60px] font-wide text-void text-8xl font-black rotate-90 opacity-20">SYS</div>
+                    </div>
+                    <div class="w-[120px] h-[500px] bg-paper border-[8px] border-void absolute top-[10%] -left-[140px] flex flex-col justify-between p-4 shadow-hard-alert">
+                        <div class="w-full h-20 ribbed-black"></div>
+                        <div class="font-wide text-4xl font-black rotate-90 -ml-8">&gt;&gt; SP-iCa</div>
+                    </div>
+                    <div class="w-[20px] h-[200vh] bg-void absolute -left-[200px] top-[-50vh]"></div>
+                </div>
+
+                <div class="absolute ml-[320px] -mt-[200px] flex gap-6">
+                    <div class="w-[80px] h-[200vh] bg-miku shadow-hard-black flex flex-col items-center pt-64 gap-8">
+                        <div class="w-16 h-16 border-[8px] border-void rounded-full"></div>
+                        <div class="font-wide text-void text-4xl font-black rotate-90 mt-16 whitespace-nowrap">&lt;&lt; EXIT &lt;&lt;</div>
+                    </div>
+                    <div class="w-[12px] h-[200vh] bg-void mt-[100px]"></div>
+                    <div class="w-[4px] h-[200vh] bg-alert mt-[150px]"></div>
+                    <div class="w-[30px] h-[200vh] ribbed-alert mt-[200px]"></div>
+
+                    <div class="absolute top-[40%] left-[120px] flex flex-col gap-2">
+                        <svg class="w-24 h-24 text-void" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                        <svg class="w-24 h-24 text-miku -mt-12" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    </div>
+                </div>
+
+                <div class="absolute w-[200vh] h-[40px] bg-void rotate-90 top-1/2 left-[-50vw] opacity-20 mix-blend-overlay"></div>
+                <div class="absolute w-[200vh] h-[20px] bg-alert rotate-90 top-[40%] left-[-40vw]"></div>
+            </div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 mt-auto mb-16 flex flex-col md:flex-row justify-between items-end gsap-slide opacity-0">
+
+            <div class="wireframe-box p-6 md:p-10 shadow-hard-miku max-w-2xl bg-[#FAFAFA]/95 backdrop-blur-sm">
+                <p class="text-alert font-bold tracking-[0.4em] mb-4 text-sm uppercase flex items-center gap-2">
+                    <span class="w-3 h-3 bg-alert animate-pulse inline-block"></span>
+                    USER_ID: 0xKIRISAME
+                </p>
+                <h1 class="font-wide text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6 text-void">
+                    <div class="vector-glitch-block" data-text="Salman">Salman</div><br />
+                    <div class="vector-glitch-block text-transparent mt-2" style="-webkit-text-stroke: 3px #000;" data-text="Aljardan">Aljardan</div>
+                </h1>
+                <div class="flex flex-wrap gap-4 font-black text-sm tracking-widest bg-void text-white p-3 inline-block shadow-[6px_6px_0_0_#FF0055] uppercase">
+                    <span>SRE</span> // <span>COMPE</span> // <span class="text-miku">KERNEL_SEC</span>
+                </div>
+            </div>
+
+            <nav class="mt-8 md:mt-0 grid grid-cols-1 gap-4 w-full md:w-auto">
+                <a href="#setlist" class="diva-nav text-center shadow-hard-black">Setlist</a>
+                <a href="/blog" class="diva-nav text-center shadow-hard-black page-link">Blog</a>
+                <a href="#ops" class="diva-nav text-center shadow-hard-black">Ops</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-[1000px] mx-auto px-4 md:px-8 pt-24 pb-40 z-content">
+        <div class="flex flex-col gap-16" id="setlist">
+
+            <a href="/blog/SPiCa" class="gsap-slide opacity-0 wireframe-box flex flex-col md:flex-row group shadow-hard-black hover:shadow-hard-miku transition-all duration-300 bg-white cursor-pointer page-link items-stretch">
+                <div class="w-full md:w-2/5 min-h-[300px] border-b-[4px] md:border-b-0 md:border-r-[4px] border-black relative overflow-hidden bg-black p-2 flex-shrink-0 flex items-center justify-center">
+                    <img src="/images/spica_cover.webp" class="absolute inset-0 w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" />
+                    <div class="absolute top-4 left-4 bg-miku text-black px-4 py-2 text-xs font-black font-wide animate-pulse shadow-hard-black z-10 border-2 border-black">FEATURED_TRACK</div>
+                    <div class="absolute w-16 h-16 border-[4px] border-alert rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center scale-50 group-hover:scale-100">
+                        <div class="w-[140%] h-[4px] bg-alert absolute"></div>
+                        <div class="h-[140%] w-[4px] bg-alert absolute"></div>
+                    </div>
+                </div>
+                <div class="p-8 w-full md:w-3/5 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-wide text-5xl font-black group-hover:text-miku transition-colors uppercase">SPiCa</h3>
+                            <span class="text-xs font-black tracking-widest bg-black text-white px-3 py-1 shadow-[4px_4px_0_0_#39C5BB]">V_1.2</span>
+                        </div>
+                        <p class="font-bold text-alert text-xs tracking-widest mb-6 uppercase border-b-4 border-black inline-block pb-2">Binary Star Systems & Kernel Sovereignty</p>
+                        <p class="text-base leading-relaxed mb-8 font-bold font-mono text-gray-800">
+                            A kernel-sovereign eBPF Rootkit Detection Engine written in Rust. Detects DKOM and PID Hollowing by monitoring the CPU scheduler directly, bypassing syscall tables. Restoring harmony between Kernel and User space.
+                        </p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="border-[4px] border-black px-4 py-2 text-sm font-black uppercase glitch-hover transition-colors shadow-[4px_4px_0_0_#000]">Rust</span>
+                        <span class="border-[4px] border-black px-4 py-2 text-sm font-black uppercase glitch-hover transition-colors shadow-[4px_4px_0_0_#000]">Aya eBPF</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                <div class="gsap-slide opacity-0 wireframe-box p-8 bg-white shadow-hard-black flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                    <div>
+                        <h3 class="font-wide text-3xl font-black mb-4 uppercase">Entropy AI</h3>
+                        <p class="text-miku font-black tracking-widest text-xs mb-6 bg-void text-white p-2 inline-block">SRE // PRESENT</p>
+                        <p class="text-sm font-bold mb-4 font-mono leading-relaxed text-gray-800">
+                            Diagnosed critical deadlocks in Metaflow/MinIO clusters. Engineered internal HTTP service mesh & Nginx reverse-proxy sidecars.
+                        </p>
+                    </div>
+                    <span class="text-xs tracking-widest font-black uppercase border-t-[4px] border-black pt-4 w-full text-alert mt-6 block">STATUS: ACTIVE</span>
+                </div>
+
+                <a href="https://github.com/0xKirisame/memory-safe-REPL-shell" target="_blank" class="gsap-slide opacity-0 wireframe-box p-8 bg-miku text-black shadow-hard-black flex flex-col justify-between hover:bg-black hover:text-miku transition-colors duration-300 group outline-none">
+                    <div>
+                        <h3 class="font-wide text-3xl font-black mb-4 uppercase group-hover:text-white transition-colors">Mem-Safe REPL</h3>
+                        <p class="font-black tracking-widest text-xs mb-6 bg-white group-hover:bg-alert group-hover:text-white text-void p-2 inline-block transition-colors">RUST SHELL</p>
+                        <p class="text-sm font-bold mb-4 font-mono leading-relaxed text-void group-hover:text-gray-300 transition-colors">
+                            FSM lexer written in Rust. Features REPL utilities, pipe handling, and safe binary execution.
+                        </p>
+                    </div>
+                    <span class="text-xs tracking-widest font-black uppercase border-t-[4px] border-black pt-4 w-full group-hover:border-miku transition-colors mt-6 block">GITHUB -&gt;</span>
+                </a>
+
+            </div>
+        </div>
+    </main>
+</BaseLayout>
