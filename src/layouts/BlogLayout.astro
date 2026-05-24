@@ -1,23 +1,130 @@
 ---
-import '../styles/global.css';
-import '../styles/blog.css';
-
-interface Props {
-  title: string;
-}
-
-const { title } = Astro.props;
+// src/layouts/BlogLayout.astro
+const { frontmatter } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <link rel="icon" href="/images/Tou.png" />
-  </head>
-  <body class="blog-body antialiased">
-    <slot />
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{frontmatter.title} // SYS.CORE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased selection:bg-[#39C5BB] selection:text-black font-['Inter'] overflow-x-hidden">
+
+    <div id="page-curtain-container" class="fixed inset-0 z-[9999] pointer-events-none bg-white overflow-hidden flex items-center justify-center">
+        <div class="absolute w-[300vw] h-[300vh] flex flex-col justify-center items-center -rotate-12">
+            <div class="curtain-stripe w-full h-[40vh] bg-black shadow-[0_20px_0_0_#39C5BB] relative z-30"></div>
+            <div class="curtain-stripe w-full h-[40vh] bg-[#39C5BB] relative z-20"></div>
+            <div class="curtain-stripe w-full h-[40vh] bg-[#FF0055] shadow-[0_-20px_0_0_#000000] relative z-10"></div>
+        </div>
+    </div>
+
+    <nav class="gsap-slide opacity-0 w-full border-b-[1px] border-gray-300 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-[800px] mx-auto px-6 h-14 flex justify-between items-center">
+            <a href="/blog/index.html" class="page-link font-['Syncopate'] font-bold text-xs hover:text-[#39C5BB] transition-colors tracking-widest flex items-center gap-2">
+                <span class="text-[#FF0055]"><<</span> RETURN
+            </a>
+            <div class="font-['JetBrains_Mono'] text-[10px] md:text-xs tracking-widest flex items-center gap-3 text-gray-500">
+                <span>0xKIRISAME</span>
+                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                <span class="text-[#39C5BB]">SYS.LOG</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-[800px] mx-auto px-6 pt-16 pb-32">
+        <article class="gsap-slide opacity-0">
+            
+            <header class="mb-16">
+                <div class="flex gap-6 mb-8 font-['JetBrains_Mono'] text-xs font-bold uppercase tracking-widest border-l-2 border-[#39C5BB] pl-4">
+                    <div class="flex flex-col text-gray-500">
+                        <span class="text-[9px] mb-1">DATE_FILED</span>
+                        <span class="text-black">{frontmatter.date}</span>
+                    </div>
+                    <div class="flex flex-col text-gray-500">
+                        <span class="text-[9px] mb-1">DESIGNATION</span>
+                        <span class="text-black">TRK_{frontmatter.track_id}</span>
+                    </div>
+                    <div class="flex flex-col text-gray-500">
+                        <span class="text-[9px] mb-1">VECTORS</span>
+                        <span class="text-[#FF0055]">{frontmatter.tags}</span>
+                    </div>
+                </div>
+
+                <h1 class="font-['Syncopate'] text-3xl md:text-5xl font-black uppercase tracking-tighter text-black leading-tight mb-6">
+                    {frontmatter.title}
+                </h1>
+            </header>
+
+            {frontmatter.heroImage && (
+                <figure class="crosshair border border-black bg-white p-2 mb-16">
+                    <img src={frontmatter.heroImage} class="w-full h-[250px] md:h-[400px] object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Dossier Asset">
+                    <figcaption class="font-['JetBrains_Mono'] text-[10px] text-gray-400 mt-2 text-right uppercase tracking-widest">SYS.IMG // {frontmatter.track_id}</figcaption>
+                </figure>
+            )}
+
+            <div class="dossier-content">
+                <slot />
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="gsap-slide opacity-0 border-t-[1px] border-gray-200 mt-20 py-8 text-center font-['JetBrains_Mono'] text-[10px] tracking-widest text-gray-400">
+        END OF TRANSMISSION // 0xKIRISAME
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            gsap.set("#page-curtain-container", { backgroundColor: "transparent" });
+            gsap.to(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%", duration: 1.2, stagger: 0.15, ease: "power4.inOut", delay: 0.3 });
+            gsap.fromTo(".gsap-slide", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power4.out", delay: 0.8, clearProps: "transform" });
+        });
+
+        document.querySelectorAll('a.page-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                const targetUrl = link.getAttribute('href');
+                gsap.fromTo(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%" }, { x: "0%", duration: 0.6, stagger: 0.1, ease: "power4.inOut", onComplete: () => { window.location.href = targetUrl; }});
+            });
+        });
+    </script>
+</body>
 </html>
+
+<style is:global>
+    body {
+        background-color: #FAFAFA;
+        color: #111111;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        background-position: center top;
+    }
+    
+    .crosshair { position: relative; }
+    .crosshair::before, .crosshair::after { content: '+'; position: absolute; font-family: monospace; font-size: 1rem; color: #39C5BB; line-height: 0.5; font-weight: bold; }
+    .crosshair::before { top: -6px; left: -6px; } .crosshair::after { bottom: -6px; right: -6px; }
+
+    .dossier-content { font-size: 1.125rem; line-height: 1.8; color: #222; }
+    .dossier-content p { margin-bottom: 1.75rem; }
+    
+    .dossier-content h2 {
+        font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 1.75rem; color: #000; text-transform: uppercase;
+        margin-top: 4rem; margin-bottom: 1.5rem; border-bottom: 2px solid #000; padding-bottom: 0.5rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 1rem;
+    }
+    .dossier-content h2::before { content: ''; display: inline-block; width: 12px; height: 12px; background-color: #39C5BB; }
+    
+    .dossier-content pre {
+        background-color: #0A0A0A; color: #E5E5E5; padding: 1.5rem; margin: 2.5rem 0; font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem; border: 1px solid #333; border-left: 4px solid #39C5BB; border-radius: 2px; overflow-x: auto;
+    }
+    .dossier-content p code {
+        background-color: rgba(0,0,0,0.05); color: #FF0055; padding: 0.1rem 0.4rem; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; font-weight: bold;
+    }
+</style>
