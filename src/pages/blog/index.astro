@@ -1,34 +1,328 @@
----
-import BlogLayout from '../../layouts/BlogLayout.astro';
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACKLIST // SYSTEM.CORE</title>
+    <link rel="icon" href='../images/Tou.png'>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=JetBrains+Mono:wght@400;700;800&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        miku: '#39C5BB',
+                        alert: '#FF0055',
+                        void: '#000000',
+                        paper: '#FAFAFA'
+                    },
+                    fontFamily: {
+                        'wide': ['Syncopate', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'jp': ['Noto Serif JP', 'serif']
+                    },
+                    boxShadow: {
+                        'hard-miku': '8px 8px 0px 0px #39C5BB',
+                        'hard-alert': '8px 8px 0px 0px #FF0055',
+                        'hard-black': '8px 8px 0px 0px #000000',
+                        'hard-white': '8px 8px 0px 0px #FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
 
-<BlogLayout title="Blog | Salman Aljardan">
-  <div class="container mx-auto max-w-4xl px-4 py-16">
-    <header class="mb-16">
-      <a href="/" class="text-gray-400 hover:text-white transition-colors mb-4 block">&larr; Return to Base</a>
-      <h1 class="text-4xl lg:text-6xl font-jp font-bold text-white">Transmission Log</h1>
-      <p class="text-lg text-gray-400 mt-2">Engineering notes from the void.</p>
-    </header>
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #000000;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(#e5e5e5 2px, transparent 2px),
+                linear-gradient(90deg, #e5e5e5 2px, transparent 2px);
+            background-size: 60px 60px;
+        }
 
-    <main class="grid gap-8">
-      <a href="/blog/SPiCa" class="card block bg-[#1A1A1A] border border-[#333333] rounded-lg p-8 transition-all duration-300 group">
-        <div class="flex justify-between items-start mb-4">
-          <h2 class="text-2xl font-bold text-white group-hover:text-[#39C5BB] transition-colors">
-            SPiCa: Binary Star Systems & Kernel Sovereignty
-          </h2>
-          <span class="text-sm text-gray-500 font-mono">2026-01-17</span>
+        /* Danmaku Layer */
+        #danmaku-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .danmaku-bullet {
+            position: absolute;
+            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: rgba(0,0,0,0.06);
+            font-weight: bold;
+            will-change: transform;
+        }
+
+        /* Wireframe UI Elements */
+        .wireframe-box {
+            border: 4px solid #000;
+            background: rgba(255, 255, 255, 1);
+            position: relative;
+        }
+        .wireframe-box::before, .wireframe-box::after {
+            content: '+';
+            position: absolute;
+            font-family: monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #39C5BB;
+            line-height: 0.5;
+        }
+        .wireframe-box::before { top: -12px; left: -12px; }
+        .wireframe-box::after { bottom: -12px; right: -12px; }
+
+        /* Rhythm Game Track Banner Hover */
+        .track-banner {
+            transform: skewX(-5deg) translateX(0);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .track-banner:hover {
+            transform: skewX(-5deg) translateX(20px);
+            box-shadow: 12px 12px 0px 0px #39C5BB;
+            background-color: #000;
+        }
+        .track-banner:hover .track-title { color: #39C5BB; }
+        .track-banner:hover .track-desc { color: #FAFAFA; }
+        .track-banner:hover .track-meta { border-color: #39C5BB; color: #fff; }
+        .track-banner:hover .thumbnail-overlay { opacity: 0; }
+
+        /* Utility */
+        .z-content { z-index: 10; position: relative; }
+        
+        .ribbed-miku {
+            background: repeating-linear-gradient(
+                45deg,
+                #39C5BB,
+                #39C5BB 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-miku selection:text-void font-mono">
+
+    <div id="page-curtain-container" class="fixed inset-0 z-[9999] pointer-events-none bg-white overflow-hidden flex items-center justify-center">
+        <div class="absolute w-[300vw] h-[300vh] flex flex-col justify-center items-center -rotate-12">
+            <div class="curtain-stripe w-full h-[40vh] bg-void shadow-[0_20px_0_0_#39C5BB] relative z-30"></div>
+            <div class="curtain-stripe w-full h-[40vh] bg-miku relative z-20"></div>
+            <div class="curtain-stripe w-full h-[40vh] bg-alert shadow-[0_-20px_0_0_#000000] relative z-10"></div>
+        </div>
+    </div>
+
+    <div id="danmaku-layer"></div>
+
+    <nav class="fixed top-0 left-0 w-full h-16 z-50 flex justify-between items-center px-4 md:px-8 pointer-events-none">
+        <a href="/" class="pointer-events-auto page-link bg-void text-miku font-wide font-black text-sm md:text-xl px-6 py-3 border-[4px] border-black shadow-hard-miku hover:bg-miku hover:text-void transition-colors flex items-center gap-4 group">
+            <span class="group-hover:-translate-x-2 transition-transform"><< EXIT</span>
+        </a>
+        <div class="bg-paper border-[4px] border-void px-6 py-3 shadow-hard-black font-wide font-black text-xs md:text-sm tracking-widest pointer-events-auto">
+            SYS.CORE // <span class="text-alert animate-pulse">LOG_ARCHIVE</span>
+        </div>
+    </nav>
+
+    <main class="max-w-[1400px] mx-auto px-4 md:px-8 pt-32 pb-40 z-content grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <div class="lg:col-span-3 flex flex-col justify-start relative gsap-slide opacity-0">
+            <div class="sticky top-32 flex flex-col gap-6">
+                <div class="w-24 h-6 ribbed-miku border-[3px] border-void"></div>
+                <h1 class="font-wide text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-void" style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+                    TRACK<br>
+                    <span class="text-transparent" style="-webkit-text-stroke: 3px #000;">LIST</span>
+                </h1>
+                <div class="font-mono text-xs font-bold uppercase tracking-[0.3em] bg-void text-white p-3 shadow-hard-miku mt-4 self-end">
+                    > SELECT_TRANSMISSION
+                </div>
+            </div>
         </div>
 
-        <p class="text-gray-400 mb-4">
-          Inspired by the lyrics of a Hatsune Miku song, this post explores how the binary star system of Spica mirrors the relationship between Kernel and User Space, and how eBPF differential analysis can restore harmony when rootkits disrupt it.
-        </p>
+        <div class="lg:col-span-9 flex flex-col gap-8 md:gap-12 mt-12 lg:mt-0" id="track-container">
+            
+            <a href="/blog/SPiCa/" class="gsap-track opacity-0 track-banner wireframe-box block page-link group relative outline-none">
+                <div class="flex flex-col md:flex-row h-full">
+                    
+                    <div class="w-full md:w-1/3 min-h-[200px] border-b-[4px] md:border-b-0 md:border-r-[4px] border-black relative overflow-hidden bg-void flex-shrink-0">
+                        <img src="../images/spica_cover.webp" class="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-500 scale-105 group-hover:scale-100 group-hover:grayscale-0">
+                        <div class="thumbnail-overlay absolute inset-0 bg-miku mix-blend-screen opacity-50 transition-opacity duration-300"></div>
+                        
+                        <div class="absolute bottom-4 left-4 bg-void text-white px-3 py-1 font-wide font-black text-2xl shadow-[4px_4px_0_0_#39C5BB]">
+                            TRK_01
+                        </div>
+                    </div>
 
-        <div class="flex gap-2">
-          <span class="text-xs bg-teal-900/30 text-teal-300 px-2 py-1 rounded">Philosophy</span>
-          <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">Rust</span>
-          <span class="text-xs bg-purple-900/30 text-purple-300 px-2 py-1 rounded">eBPF</span>
+                    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow bg-paper group-hover:bg-void transition-colors duration-300">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h2 class="track-title font-wide text-3xl md:text-4xl font-black text-void uppercase leading-tight">
+                                    SPiCa: Binary Star Systems & Kernel Sovereignty
+                                </h2>
+                            </div>
+                            <p class="track-desc text-gray-700 font-mono font-bold text-sm mb-6 leading-relaxed">
+                                Inspired by the lyrics of a Hatsune Miku song, this post explores how the binary star system of Spica mirrors the relationship between Kernel and User Space, and how eBPF differential analysis can restore harmony when rootkits disrupt it.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 mt-auto">
+                            <span class="track-meta border-[3px] border-void text-void px-3 py-1 text-xs font-black uppercase tracking-widest bg-transparent">2026-01-17</span>
+                            <span class="track-meta border-[3px] border-void text-void px-3 py-1 text-xs font-black uppercase tracking-widest bg-transparent">Philosophy</span>
+                            <span class="track-meta border-[3px] border-void text-void px-3 py-1 text-xs font-black uppercase tracking-widest bg-transparent">Rust // eBPF</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://github.com/0xKirisame/memory-safe-REPL-shell" target="_blank" class="gsap-track opacity-0 track-banner wireframe-box block group relative outline-none">
+                <div class="flex flex-col md:flex-row h-full">
+                    
+                    <div class="w-full md:w-1/3 min-h-[200px] border-b-[4px] md:border-b-0 md:border-r-[4px] border-black relative overflow-hidden bg-void flex-shrink-0 flex items-center justify-center">
+                        <div class="absolute inset-0 ribbed-black opacity-50"></div>
+                        <svg class="w-24 h-24 text-miku opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 6h16v12H4z"></path></svg>
+                        
+                        <div class="absolute bottom-4 left-4 bg-void text-white px-3 py-1 font-wide font-black text-2xl shadow-[4px_4px_0_0_#FF0055]">
+                            TRK_02
+                        </div>
+                    </div>
+
+                    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow bg-paper group-hover:bg-void transition-colors duration-300">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h2 class="track-title font-wide text-3xl md:text-4xl font-black text-void uppercase leading-tight">
+                                    Memory Safe REPL Architecture
+                                </h2>
+                            </div>
+                            <p class="track-desc text-gray-700 font-mono font-bold text-sm mb-6 leading-relaxed">
+                                Breaking down the construction of a POSIX-compliant shell. Examining the finite-state machine lexer written in Rust, and handling raw system pipes without memory corruption.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 mt-auto">
+                            <span class="track-meta border-[3px] border-void text-void px-3 py-1 text-xs font-black uppercase tracking-widest bg-transparent">2025-11-04</span>
+                            <span class="track-meta border-[3px] border-void text-void px-3 py-1 text-xs font-black uppercase tracking-widest bg-transparent">Systems</span>
+                            <span class="track-meta border-[3px] border-void text-void px-3 py-1 text-xs font-black uppercase tracking-widest bg-transparent">Rust // POSIX</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
         </div>
-      </a>
     </main>
-  </div>
-</BlogLayout>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // 1. PAGE LOAD REVEAL
+        window.addEventListener('load', () => {
+            gsap.set("#page-curtain-container", { backgroundColor: "transparent" });
+
+            // Slash the curtain open
+            gsap.to(".curtain-stripe", {
+                x: (index) => index % 2 === 0 ? "100%" : "-100%", 
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power4.inOut",
+                delay: 0.3 
+            });
+
+            // Reveal the Header
+            gsap.fromTo(".gsap-slide", 
+                { x: -100, opacity: 0 },
+                { 
+                    x: 0, 
+                    opacity: 1, 
+                    duration: 0.8, 
+                    ease: "power4.out", 
+                    delay: 0.8,
+                    clearProps: "transform" 
+                }
+            );
+
+            // Stagger the Tracklist (Song Select effect)
+            gsap.fromTo(".gsap-track", 
+                { x: 150, opacity: 0, skewX: -15 },
+                { 
+                    x: 0, 
+                    opacity: 1, 
+                    skewX: -5, // Returns to the default CSS skew
+                    duration: 0.8, 
+                    stagger: 0.2, // This creates the sequential cascading load
+                    ease: "power4.out", 
+                    delay: 1.0,
+                    clearProps: "transform" // <--- THE FIX: Clear transform instead of opacity so hover works, but they stay visible
+                }
+            );
+        });
+
+        // 2. PAGE EXIT ANIMATION
+        document.querySelectorAll('a.page-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                const targetUrl = link.getAttribute('href');
+                
+                // Slam the curtain shut
+                gsap.fromTo(".curtain-stripe", 
+                    { x: (index) => index % 2 === 0 ? "100%" : "-100%" }, 
+                    { 
+                        x: "0%", 
+                        duration: 0.6, 
+                        stagger: 0.1, 
+                        ease: "power4.inOut",
+                        onComplete: () => {
+                            window.location.href = targetUrl;
+                        }
+                    }
+                );
+            });
+        });
+
+        // 3. DANMAKU (Bullet Curtain)
+        const danmakuLayer = document.getElementById('danmaku-layer');
+        const technicalTerms = [
+            "TRACK_SELECT", "BPM:180", "COMBO_X99", "Aya_eBPF", 
+            "EXTREME_DIFFICULTY", "0xKIRISAME", "vmlinux", "PERFECT_CLEAR", 
+            "sys_execve", "kprobe", "bpf_map_lookup", "Vec<u8>", 
+            "VOCALOID_01", "39's_GIVING_DAY", "SYSTEM.CORE"
+        ];
+
+        function createDanmaku() {
+            const el = document.createElement('div');
+            el.className = 'danmaku-bullet';
+            el.innerText = technicalTerms[Math.floor(Math.random() * technicalTerms.length)];
+            
+            const startY = Math.random() * window.innerHeight;
+            el.style.top = `${startY}px`;
+            el.style.left = '100vw';
+            
+            danmakuLayer.appendChild(el);
+
+            const duration = 8 + Math.random() * 12; 
+            
+            gsap.to(el, {
+                x: -window.innerWidth - 400, 
+                duration: duration,
+                ease: "none",
+                onComplete: () => {
+                    el.remove();
+                }
+            });
+        }
+
+        setInterval(createDanmaku, 400);
+        for(let i=0; i<30; i++) {
+            setTimeout(createDanmaku, Math.random() * 2000);
+        }
+    </script>
+</body>
+</html>
