@@ -1,0 +1,200 @@
+---
+import '../styles/global.css';
+
+// ==========================================
+// 0xKIRISAME // ORDNANCE REGISTRY
+// To add a new project, just add a new block to this list!
+// ==========================================
+const projects = [
+    {
+        title: "SPiCa",
+        status: "ACTIVE",
+        description: "eBPF-based rootkit detector. Enforces binary star harmony between kernel and user space by observing raw scheduler tracepoints.",
+        tags: ["RUST", "eBPF", "SECURITY"],
+        link: "https://github.com/0xKirisame/SPiCa",
+        theme: "miku" // Use 'miku' or 'alert' to change the hover colors
+    },
+    {
+        title: "Shinkai Shoujo",
+        status: "ACTIVE",
+        description: "Agentless AWS IAM privilege analysis via OpenTelemetry. Finds unused permissions by correlating OTel traces with IAM policies, then generates Terraform to remove them. Zero deployment, zero agents.",
+        tags: ["AWS", "OTEL", "TERRAFORM"],
+        link: "https://github.com/0xKirisame/Shinkai-Shoujo",
+        theme: "alert"
+    },
+    {
+        title: "memory-safe-REPL-shell",
+        status: "ARCHIVED",
+        description: "A memory safe shell written in rust with a FSM lexer, capable of functionalities like execution, echo, exiting, type.",
+        tags: ["RUST", "SHELL", "FSM"],
+        link: "https://github.com/0xKirisame/memory-safe-REPL-shell",
+        theme: "miku"
+    }
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects // SYS.CORE</title>
+    <link rel="icon" href="/images/Tou.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #000000;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(rgba(57, 197, 187, 0.15) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(57, 197, 187, 0.15) 2px, transparent 2px);
+            background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+            background-position: center top;
+        }
+
+        .global-scanlines {
+            position: fixed; inset: 0; z-index: 5; pointer-events: none;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.03) 51%);
+            background-size: 100% 4px;
+        }
+
+        #page-curtain-container {
+            position: fixed; inset: 0; z-index: 9999; pointer-events: none; background: #fff; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .curtain-wrapper {
+            position: absolute; width: 300vw; height: 300vh; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: rotate(-12deg);
+        }
+        .curtain-stripe { width: 100%; height: 40vh; position: relative; }
+        .stripe-1 { background: #000; z-index: 30; box-shadow: 0 20px 0 0 #39C5BB; }
+        .stripe-2 { background: #39C5BB; z-index: 20; }
+        .stripe-3 { background: #FF0055; z-index: 10; box-shadow: 0 -20px 0 0 #000000; }
+
+        .page-link { position: relative; display: inline-flex; transition: all 0.2s; cursor: pointer; }
+        .page-link:hover { color: #000 !important; background: #39C5BB; box-shadow: 4px 4px 0px 0px #000; }
+
+        .z-content { z-index: 10; position: relative; }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#39C5BB] selection:text-black font-['JetBrains_Mono']">
+
+    <div class="global-scanlines"></div>
+    <div class="fixed inset-0 z-[4] pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.05)]"></div>
+
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center opacity-70">
+        <div class="absolute w-[150vw] md:w-[100vw] aspect-square border-[4px] border-dashed border-black/10 rounded-full animate-[spin_120s_linear_infinite]"></div>
+        <div class="absolute w-[120vw] md:w-[80vw] aspect-square border-[12px] border-[#39C5BB]/10 rounded-full animate-[spin_80s_linear_infinite_reverse]">
+            <div class="absolute top-0 left-1/2 w-8 h-8 bg-[#FF0055]/20 -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-1/2 w-8 h-8 bg-[#FF0055]/20 -translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        <div class="absolute w-[60vw] md:w-[40vw] aspect-square border-[2px] border-black/5 rounded-full animate-[spin_40s_linear_infinite]"></div>
+        <div class="absolute left-4 top-0 w-[2px] h-full bg-black/10 hidden md:block"></div>
+        <div class="absolute right-4 top-0 w-[4px] h-full bg-gradient-to-b from-[#39C5BB]/20 via-[#FF0055]/20 to-[#39C5BB]/20 hidden md:block"></div>
+        <div class="absolute w-[200px] h-[200px] border-[1px] border-[#39C5BB]/20 rounded-full flex items-center justify-center">
+            <div class="w-full h-[1px] bg-[#39C5BB]/20"></div>
+            <div class="absolute h-full w-[1px] bg-[#39C5BB]/20"></div>
+        </div>
+        <div class="absolute font-['Syncopate'] text-[15vw] font-black text-black opacity-[0.02] -rotate-12 whitespace-nowrap tracking-tighter">
+            SYS.ARMORY //
+        </div>
+    </div>
+
+    <div id="page-curtain-container">
+        <div class="curtain-wrapper">
+            <div class="curtain-stripe stripe-1"></div>
+            <div class="curtain-stripe stripe-2"></div>
+            <div class="curtain-stripe stripe-3"></div>
+        </div>
+    </div>
+
+    <nav class="gsap-slide opacity-0 w-full border-b-[4px] border-black bg-white/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-[1200px] mx-auto px-4 md:px-8 h-16 flex justify-between items-center">
+            <a href="/" class="page-link font-['Syncopate'] font-bold text-xs tracking-widest items-center gap-2 bg-black text-white px-4 py-2 shadow-[4px_4px_0_0_#39C5BB]">
+                <span class="text-[#FF0055]"><<</span> RETURN_TO_BASE
+            </a>
+            <div class="text-[10px] md:text-xs tracking-widest flex items-center gap-3 text-black font-black">
+                <span>0xKIRISAME</span>
+                <span class="w-2 h-2 bg-[#FF0055] rounded-full animate-pulse"></span>
+                <span class="text-[#39C5BB]">SYS.ARMORY</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-[1200px] mx-auto px-4 md:px-8 pt-16 pb-32 z-content relative">
+        
+        <header class="gsap-slide opacity-0 mb-16 border-l-[8px] border-[#39C5BB] pl-6 bg-white/50 backdrop-blur-sm p-4 inline-block shadow-[8px_8px_0_0_#000]">
+            <h1 class="font-['Syncopate'] text-4xl md:text-6xl font-black uppercase tracking-tighter text-black leading-tight">
+                Deployed <br><span class="text-[#FF0055]">Armory</span>
+            </h1>
+            <p class="text-sm md:text-base font-bold text-gray-800 mt-4 max-w-2xl bg-white p-2 border-2 border-black">
+                >> My custom spells, each with its own crazy theory and a very specific inspiration.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 gsap-slide opacity-0">
+            
+            {projects.map((project) => (
+                <article class={`relative bg-white/95 backdrop-blur-sm border-[4px] border-black p-6 md:p-8 shadow-[8px_8px_0_0_#000] transition-all duration-300 hover:-translate-y-2 group ${project.theme === 'miku' ? 'hover:shadow-[8px_8px_0_0_#39C5BB]' : 'hover:shadow-[8px_8px_0_0_#FF0055]'}`}>
+                    
+                    <div class={`absolute top-0 right-0 font-['Syncopate'] font-black text-[10px] px-3 py-1 border-b-[4px] border-l-[4px] border-black ${project.status === 'ACTIVE' ? 'bg-[#FF0055] text-white' : 'bg-black text-[#39C5BB]'}`}>
+                        STATUS: {project.status}
+                    </div>
+                    
+                    <h2 class={`font-['Syncopate'] text-2xl md:text-3xl font-black uppercase text-black mb-4 transition-colors tracking-tighter ${project.theme === 'miku' ? 'group-hover:text-[#39C5BB]' : 'group-hover:text-[#FF0055]'}`}>
+                        {project.title}
+                    </h2>
+                    
+                    <p class="text-sm font-bold text-gray-700 mb-6 h-auto md:h-24">
+                        {project.description}
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        {project.tags.map((tag) => (
+                            <span class="border-2 border-black text-black bg-white px-2 py-1 text-xs font-black tracking-widest">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    
+                    <a href={project.link} target="_blank" class={`inline-flex items-center gap-2 font-['Syncopate'] font-black text-xs px-6 py-3 transition-colors ${project.theme === 'miku' ? 'bg-black text-[#39C5BB] hover:bg-[#39C5BB] hover:text-black shadow-[4px_4px_0_0_#FF0055]' : 'bg-black text-[#39C5BB] hover:bg-[#FF0055] hover:text-white shadow-[4px_4px_0_0_#39C5BB]'}`}>
+                        >> SOURCE_CODE
+                    </a>
+                </article>
+            ))}
+
+        </div>
+    </main>
+
+    <div class="fixed top-0 left-0 w-8 h-8 border-t-[6px] border-l-[6px] border-[#39C5BB] z-50 pointer-events-none mix-blend-difference"></div>
+    <div class="fixed top-0 right-0 w-8 h-8 border-t-[6px] border-r-[6px] border-[#39C5BB] z-50 pointer-events-none mix-blend-difference"></div>
+    <div class="fixed bottom-0 left-0 w-8 h-8 border-b-[6px] border-l-[6px] border-[#39C5BB] z-50 pointer-events-none mix-blend-difference"></div>
+    <div class="fixed bottom-0 right-0 w-8 h-8 border-b-[6px] border-r-[6px] border-[#39C5BB] z-50 pointer-events-none mix-blend-difference"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Entry Animations
+        window.addEventListener('load', () => {
+            gsap.set("#page-curtain-container", { backgroundColor: "transparent" });
+            gsap.to(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%", duration: 1.2, stagger: 0.15, ease: "power4.inOut", delay: 0.1 });
+            gsap.fromTo(".gsap-slide", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power4.out", delay: 0.6, clearProps: "transform" });
+        });
+
+        // Exit Animations (Clicking RETURN_TO_BASE)
+        document.querySelectorAll('a.page-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // If it's the home button, do the curtain transition
+                if (link.getAttribute('href') === '/') {
+                    e.preventDefault(); 
+                    gsap.fromTo(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%" }, { x: "0%", duration: 0.6, stagger: 0.1, ease: "power4.inOut", onComplete: () => { window.location.href = '/'; }});
+                }
+            });
+        });
+    </script>
+</body>
+</html>
