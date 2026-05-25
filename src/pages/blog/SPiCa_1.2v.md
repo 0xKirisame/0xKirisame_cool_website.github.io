@@ -4,7 +4,7 @@ title: "SPiCa: Security through obscurity and prayers"
 date: "2026.05.26"
 track_id: "SPICA_V2.0"
 tags: "SECURITY / eBPF / RUST"
-heroImage: "/images/spica_cover2.webp"
+heroImage: "/images/SPiCa_cover2.webp"
 ---
 
 *"Catch me! I'll leap over Denebola!"*
@@ -78,7 +78,7 @@ after an intense argument with claude it hit me... the OLDEST trick in the book 
     <span class="font-['JetBrains_Mono'] text-[10px] text-gray-500 uppercase tracking-widest">SYS.VID // SPICA_V1.2</span>
   </div>
   <video controls class="w-full">
-    <source src="/images/singularity_kill.mp4" type="video/mp4" />
+    <source src="/images/signularity_kill.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
