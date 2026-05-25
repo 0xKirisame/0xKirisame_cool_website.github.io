@@ -10,9 +10,8 @@ import '../styles/global.css';
     <title>0xKirisame // SYSTEM.CORE</title>
     <link rel="icon" href="/images/Tou.png">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="/fonts/syncopate-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body class="antialiased selection:bg-miku selection:text-void font-mono bg-paper text-void overflow-x-hidden">
 
@@ -80,7 +79,7 @@ import '../styles/global.css';
             <nav class="mt-8 md:mt-0 grid grid-cols-1 gap-4 w-full md:w-auto">
                 <a href="#reviews" class="diva-nav text-center shadow-hard-black text-alert hover:text-void transition-colors">Reviews</a>
                 <a href="/blog" class="diva-nav text-center shadow-hard-black page-link">Tech Blog</a>
-                <a href="/docs/cv.pdf" target="_blank" class="diva-nav text-center shadow-hard-black text-miku hover:text-void">CV</a>
+                <a href="https://github.com/0xKirisame/resume/raw/main/Salman_Aljardan_Resume.pdf" target="_blank" class="diva-nav text-center shadow-hard-black text-miku hover:text-void">Resume</a>
             </nav>
         </div>
     </header>
@@ -141,39 +140,21 @@ import '../styles/global.css';
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        // PAGE LOAD REVEAL
+        import { gsap } from 'gsap';
+        import { initCurtain, initPageTransitions } from '../scripts/curtain';
+        import { startDanmaku } from '../scripts/danmaku';
+
         window.addEventListener('load', () => {
-            gsap.set("#page-curtain-container", { backgroundColor: "transparent" });
-            gsap.to(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%", duration: 1.2, stagger: 0.15, ease: "power4.inOut", delay: 0.3 });
-            gsap.fromTo(".gsap-slide", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power4.out", delay: 0.8, clearProps: "transform" });
-        });
+            initCurtain(gsap);
+            initPageTransitions(gsap);
 
-        // PAGE EXIT ANIMATION
-        document.querySelectorAll('a.page-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault(); 
-                const targetUrl = link.getAttribute('href');
-                gsap.fromTo(".curtain-stripe", { x: (index) => index % 2 === 0 ? "100%" : "-100%" }, { x: "0%", duration: 0.6, stagger: 0.1, ease: "power4.inOut", onComplete: () => { window.location.href = targetUrl; }});
-            });
-        });
-
-        // DANMAKU ENGINE
-        const danmakuLayer = document.getElementById('danmaku-layer');
-        const terms = ["0xFFFFFF", "sched_switch", "PID_HOLLOWING", "Aya_eBPF", "sys_execve", "0xKIRISAME", "vmlinux", "ptrace", "Vec<u8>"];
-        function createDanmaku() {
-            const el = document.createElement('div');
-            el.className = 'danmaku-bullet';
-            el.innerText = terms[Math.floor(Math.random() * terms.length)];
-            el.style.top = `${Math.random() * window.innerHeight}px`;
-            el.style.left = '100vw';
-            if (danmakuLayer) {
-                danmakuLayer.appendChild(el);
-                gsap.to(el, { x: -window.innerWidth - 400, duration: 8 + Math.random() * 12, ease: "none", onComplete: () => el.remove() });
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => startDanmaku(gsap));
+            } else {
+                setTimeout(() => startDanmaku(gsap), 1500);
             }
-        }
-        setInterval(createDanmaku, 400);
+        });
     </script>
 </body>
 </html>
