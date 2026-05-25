@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/BlogLayout.astro
 title: "SPiCa: Binary Star Systems & Kernel Sovereignty"
-date: "2025.06.01"
+date: "2025.12.23"
 track_id: "SPICA_V1"
 tags: "SECURITY / eBPF / RUST"
 heroImage: "/images/spica_cover.webp"
