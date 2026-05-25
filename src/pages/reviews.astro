@@ -1,0 +1,256 @@
+---
+import '../styles/global.css';
+
+// ==========================================
+// 0xKIRISAME // SUBJECTIVE TELEMETRY
+// Add new reviews to this array. The system will automatically color code based on the tier.
+// ==========================================
+const reviewsData = [
+    { rank: "S", classType: "VOCALOID", title: "1/6 Out of Gravity", notes: "I cried when I read the lyrics. It's my safety song." },
+    { rank: "S", classType: "VOCALOID", title: "Ghost Rule", notes: "I will definitely play it when I lock in." },
+    { rank: "S", classType: "GAME", title: "Yakuza Kiwami", notes: "It breaks hearts. I love Majima so much, and damn Sotaro Komaki aura farming while being Kiryu's master." },
+    { rank: "S", classType: "GAME", title: "Yakuza 0", notes: "Two sentences: real estate mini game and the Mad Dog of Shimano style." },
+    { rank: "S", classType: "GAME", title: "Gravity Rush 1 & 2", notes: "The epitome of a superpower weakness. Wonderful story, colorful games, and crazy good aesthetic. The second game just made the world x100 much more colorful and fancy." },
+    { rank: "S", classType: "BOOK", title: "Designing Data-Intensive Applications", notes: "A single chapter of this makes you sound like a senior systems architect. From personal experience: the more boring the chapter name and the lamer the advice, the more useful it is." },
+    
+    { rank: "A", classType: "VOCALOID", title: "Melancholic", notes: "Makes me unconditionally smile. A very innocent song." },
+    { rank: "A", classType: "GAME", title: "Yakuza Kiwami 2", notes: "All Yakuza games are S-tiers. I put this one here because they nerfed my tiger drop ( •̀ ᴖ •́ )" },
+    { rank: "A", classType: "GAME", title: "Touhou Kobuto V", notes: "Wonderful game. The story is a bit lame and too short, but the gameplay is enjoyable nonetheless." },
+
+    { rank: "B", classType: "BOOK", title: "Evading EDR", notes: "Goated, but it focuses only on Windows with most of its techniques being easily detectable nowadays. Still gives you solid grounds to invent your own doctrine." },
+    { rank: "B", classType: "ENG", title: "Signals Processing", notes: "Goated but the math is too brutal. I gave it a good rating because my professor helped me see its cool applications (thanks Prof. Abdulwadood)." },
+
+    { rank: "C", classType: "HARDWARE", title: "Microelectronics", notes: "Sounds counter-intuitive, but trust me: the MOSFETs-to-logic-gates part is the smallest and easiest chapter. Once you touch AC and analog devices, you will question your existence." },
+    { rank: "C", classType: "LANG", title: "JavaScript", notes: "Just... why??? It's like using chopsticks as the base for a skyscraper. Browsers deserve better (aka. WASM)." },
+
+    { rank: "F", classType: "MATH", title: "Calculus", notes: "It's a normal C-tier but partial fractions took it straight down to F." }
+];
+
+// Helper function to color code the Rank letters dynamically
+function getRankColor(rank) {
+    switch(rank) {
+        case 'S': return 'text-alert shadow-[2px_2px_0_0_#000]';
+        case 'A': return 'text-miku shadow-[2px_2px_0_0_#000]';
+        case 'B': return 'text-void shadow-[2px_2px_0_0_#39C5BB]';
+        case 'C': return 'text-gray-400';
+        case 'F': return 'text-white bg-alert px-2 shadow-[2px_2px_0_0_#000]';
+        default: return 'text-void';
+    }
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews // SYS.CORE</title>
+    <link rel="icon" href="/images/Tou.png">
+    
+    <link rel="preload" href="/fonts/syncopate-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <style>
+        /* HUD ANIMATIONS */
+        @keyframes scan {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+        .scan-laser {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #39C5BB;
+            box-shadow: 0 0 15px 2px #39C5BB; animation: scan 6s linear infinite; opacity: 0.3; z-index: 1;
+        }
+        @keyframes blink-hard {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .blink-hard { animation: blink-hard 0.8s infinite; }
+
+        /* Custom Table Styling */
+        .telemetry-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+        .telemetry-table th { font-family: 'Syncopate', sans-serif; text-align: left; padding: 12px 16px; font-size: 10px; color: #666; border-bottom: 2px solid #000; }
+        .telemetry-table td { background: #fff; padding: 16px; border-top: 4px solid #000; border-bottom: 4px solid #000; transition: all 0.2s; }
+        .telemetry-table td:first-child { border-left: 4px solid #000; }
+        .telemetry-table td:last-child { border-right: 4px solid #000; }
+        .telemetry-table tr.data-row:hover td { background: #FAFAFA; transform: scale(1.01); border-color: #39C5BB; cursor: crosshair; }
+    </style>
+</head>
+<body class="antialiased selection:bg-miku selection:text-void font-mono bg-paper text-void overflow-x-hidden">
+
+    <div class="fixed inset-0 z-5 pointer-events-none bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.03)_51%)] bg-[length:100%_4px]"></div>
+    <div id="danmaku-layer" class="fixed inset-0 pointer-events-none z-[2] overflow-hidden"></div>
+
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center opacity-50">
+        <div class="scan-laser"></div>
+        <div class="absolute w-[150vw] md:w-[100vw] aspect-square border-[4px] border-dashed border-black/10 rounded-full animate-[spin_120s_linear_infinite]"></div>
+        <div class="absolute w-[120vw] md:w-[80vw] aspect-square border-[12px] border-miku/10 rounded-full animate-[spin_80s_linear_infinite_reverse]">
+            <div class="absolute top-0 left-1/2 w-8 h-8 bg-alert/30 -translate-x-1/2 -translate-y-1/2 blink-hard"></div>
+            <div class="absolute bottom-0 left-1/2 w-8 h-8 bg-alert/30 -translate-x-1/2 translate-y-1/2 blink-hard"></div>
+        </div>
+        <div class="absolute w-[60vw] md:w-[40vw] aspect-square border-[2px] border-black/10 rounded-full animate-[spin_40s_linear_infinite]"></div>
+        
+        <div class="absolute w-[300px] h-[300px] border-[1px] border-miku/30 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite_reverse]">
+            <div class="w-full h-[1px] bg-miku/30"></div>
+            <div class="absolute h-full w-[1px] bg-miku/30"></div>
+            <div class="absolute w-[150px] h-[150px] border-[1px] border-alert/20 rounded-full"></div>
+            <div class="absolute w-[50px] h-[50px] border-[2px] border-void/10 rounded-full"></div>
+        </div>
+        
+        <div class="absolute left-4 top-0 w-[2px] h-full bg-black/10 hidden md:block"></div>
+        <div class="absolute right-4 top-0 w-[4px] h-full bg-gradient-to-b from-miku/20 via-alert/20 to-miku/20 hidden md:block"></div>
+        
+        <div class="absolute top-24 right-10 font-mono text-[10px] text-miku/60 text-right hidden md:block leading-tight font-black tracking-widest">
+            SYS.MONITOR // RUNNING<br>
+            VECTORS // ALIGNED<br>
+            <span class="blink-hard text-alert/60">DB_CONNECTION // UNSTABLE</span>
+        </div>
+        <div class="absolute font-wide text-[15vw] font-black text-black opacity-[0.02] -rotate-12 whitespace-nowrap tracking-tighter">
+            SYS.REVIEWS //
+        </div>
+    </div>
+
+    <div id="page-curtain-container" class="fixed inset-0 z-[9999] pointer-events-none bg-white overflow-hidden flex items-center justify-center">
+        <div class="absolute w-[300vw] h-[300vh] flex flex-col justify-center items-center -rotate-12">
+            <div class="curtain-stripe w-full h-[40vh] bg-void shadow-hard-miku relative z-30"></div>
+            <div class="curtain-stripe w-full h-[40vh] bg-miku relative z-20"></div>
+            <div class="curtain-stripe w-full h-[40vh] bg-alert shadow-[0_-20px_0_0_#000000] relative z-10"></div>
+        </div>
+    </div>
+
+    <nav class="gsap-slide opacity-0 w-full border-b-[4px] border-void bg-white/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-[1200px] mx-auto px-4 md:px-8 h-16 flex justify-between items-center">
+            <a href="/" class="page-link font-wide font-bold text-xs tracking-widest items-center gap-2 bg-void text-white px-4 py-2 shadow-hard-miku hover:bg-miku hover:text-void transition-colors">
+                <span class="text-alert"><<</span> RETURN_TO_BASE
+            </a>
+            <div class="font-mono text-[10px] md:text-xs tracking-widest flex items-center gap-3 text-void font-black">
+                <span>0xKIRISAME</span>
+                <span class="w-2 h-2 bg-alert rounded-full animate-pulse"></span>
+                <span class="text-miku">SYS.REVIEWS</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-[1200px] mx-auto px-4 md:px-8 pt-16 pb-32 z-content relative">
+        
+        <header class="gsap-slide opacity-0 mb-16 border-l-[8px] border-miku pl-6 bg-white/80 backdrop-blur-sm p-4 inline-block shadow-hard-black">
+            <h1 class="font-wide text-4xl md:text-6xl font-black uppercase tracking-tighter text-void leading-tight">
+                Subjective <br><span class="text-alert">Telemetry</span>
+            </h1>
+            <p class="font-mono text-sm md:text-base font-bold text-gray-800 mt-4 max-w-2xl bg-white p-2 border-2 border-void">
+                >> Unfiltered tier lists, hyper-fixations, and raw data on media consumption.
+            </p>
+        </header>
+
+        <section class="gsap-slide opacity-0 mb-20 relative bg-white/95 backdrop-blur-sm border-[4px] border-void p-1 shadow-hard-alert hover:shadow-hard-miku transition-shadow duration-300">
+            <div class="bg-void text-alert font-wide font-black text-[10px] px-4 py-2 absolute -top-4 -left-4 border-[4px] border-void shadow-[4px_4px_0_0_#39C5BB] uppercase animate-pulse">
+                >> CURRENT_OBSESSION
+            </div>
+            <div class="p-8 border-2 border-dashed border-gray-300 bg-[#FAFAFA] flex flex-col md:flex-row gap-8 items-center">
+                <div class="w-48 h-48 bg-void border-[4px] border-void shadow-[8px_8px_0_0_#39C5BB] flex-shrink-0 relative overflow-hidden group">
+                    <img src="/images/AC.png.avif" alt="Ace Combat" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    <div class="absolute inset-0 border-[4px] border-alert mix-blend-overlay"></div>
+                </div>
+                <div>
+                    <h2 class="font-wide text-3xl md:text-4xl font-black text-void uppercase mb-2 tracking-tighter">ACE COMBAT</h2>
+                    <div class="flex gap-2 mb-4">
+                        <span class="bg-void text-white px-2 py-1 text-[10px] font-black tracking-widest font-wide">GAME</span>
+                        <span class="bg-alert text-white px-2 py-1 text-[10px] font-black tracking-widest font-wide">S-TIER</span>
+                    </div>
+                    <p class="font-mono text-sm font-bold text-gray-700 leading-relaxed">
+                        Downing 10 jet fighters using an inward swept variable geometry jet fighter (aka. X-02 Wyvern), engaging aerial aircraft carriers, and dodging 7 UAVs in a single sortie? Sign me up. In this game not only do you pull ridiculously badass dogfights and intense high-G moves, you are literally playing the manual that DARPA cheats from to get new research ideas (e.g. CL-1201 Arsenal Bird, X-68A Z.O.E., Gremlins MQ-99).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gsap-slide opacity-0">
+            <div class="flex items-center gap-4 mb-8">
+                <h3 class="font-wide text-2xl font-black uppercase text-void">>> DATA_LOGS</h3>
+                <div class="flex-grow h-[4px] bg-void"></div>
+            </div>
+
+            <div class="overflow-x-auto pb-8">
+                <table class="telemetry-table min-w-[800px]">
+                    <thead>
+                        <tr>
+                            <th class="w-24 text-center">RANK</th>
+                            <th class="w-32">CLASS</th>
+                            <th class="w-64">DESIGNATION</th>
+                            <th>ANALYSIS / NOTES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reviewsData.map((item) => (
+                            <tr class="data-row">
+                                <td class="text-center">
+                                    <span class={`font-wide text-3xl font-black ${getRankColor(item.rank)}`}>
+                                        {item.rank}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="bg-void text-white px-2 py-1 text-[10px] font-black tracking-widest font-wide block text-center">
+                                        {item.classType}
+                                    </span>
+                                </td>
+                                <td class="font-bold text-lg uppercase tracking-tighter">
+                                    {item.title}
+                                </td>
+                                <td class="text-sm font-bold text-gray-600">
+                                    {item.notes}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="fixed top-0 left-0 w-8 h-8 border-t-[6px] border-l-[6px] border-miku z-50 pointer-events-none mix-blend-difference"></div>
+    <div class="fixed top-0 right-0 w-8 h-8 border-t-[6px] border-r-[6px] border-miku z-50 pointer-events-none mix-blend-difference"></div>
+    <div class="fixed bottom-0 left-0 w-8 h-8 border-b-[6px] border-l-[6px] border-miku z-50 pointer-events-none mix-blend-difference"></div>
+    <div class="fixed bottom-0 right-0 w-8 h-8 border-b-[6px] border-r-[6px] border-miku z-50 pointer-events-none mix-blend-difference"></div>
+
+    <script>
+        import { gsap } from 'gsap';
+        import { initCurtain, initPageTransitions } from '../scripts/curtain';
+        
+        // Custom Danmaku script specific to the reviews page
+        function startReviewDanmaku() {
+            const layer = document.getElementById('danmaku-layer');
+            const terms = ["X-02_WYVERN", "CALCULUS_F_TIER", "TIGER_DROP", "SOTARO_KOMAKI", "FFT", "GHOST_RULE", "WASM > JS", "MAJIMA", "DARPA"];
+            
+            function spawn() {
+                const el = document.createElement('div');
+                el.className = 'absolute whitespace-nowrap font-mono text-[0.85rem] text-black/5 font-bold';
+                el.innerText = terms[Math.floor(Math.random() * terms.length)];
+                el.style.top = `${Math.random() * window.innerHeight}px`;
+                el.style.left = '100vw';
+                
+                if (layer) {
+                    layer.appendChild(el);
+                    gsap.to(el, { 
+                        x: -window.innerWidth - 400, 
+                        duration: 8 + Math.random() * 12, 
+                        ease: "none", 
+                        onComplete: () => el.remove() 
+                    });
+                }
+            }
+            setInterval(spawn, 600);
+        }
+
+        window.addEventListener('load', () => {
+            initCurtain(gsap);
+            initPageTransitions(gsap);
+
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => startReviewDanmaku());
+            } else {
+                setTimeout(() => startReviewDanmaku(), 1500);
+            }
+        });
+    </script>
+</body>
+</html>
